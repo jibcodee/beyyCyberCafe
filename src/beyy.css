@@ -1,0 +1,180 @@
+/* ================= BASE ================= */
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ================= NAV ================= */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  border-bottom: 1px solid #0f0;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00ff00;
+}
+
+.logo-icon {
+  width: 1.5rem;   /* same size as text */
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;   /* spacing between nav links */
+}
+
+/* ================= HERO ================= */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero h1 {
+  color: #00ff00;
+  font-size: 3rem;
+}
+
+/* ================= SECTION ================= */
+.section {
+  margin-top: 4rem;
+  padding: 2rem;
+}
+
+.section h2 {
+  text-align: center;
+  color: #00ff00;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  color: white;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ================= GRID ================= */
+.spec-grid,
+.service-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* ================= RGB BORDER CARD ================= */
+.spec-card,
+.service-card {
+  position: relative;
+  width: 260px;
+  padding: 2rem;
+  border-radius: 16px;
+  background: #111;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.spec-card::before,
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0066ff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 400% 400%;
+  animation: rgbBorderMove 25s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.spec-card:hover,
+.service-card:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* ================= SPEC DETAIL ================= */
+.spec-detail {
+  position: relative;
+  max-width: 800px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  border-radius: 18px;
+  background: #0f0f0f;
+  text-align: center;   /* center content */
+}
+
+.spec-text p {
+  margin: 0.6rem 0;
+  color: #e0e0e0;
+}
+
+/* ================= SERVICE CARD ================= */
+.service-flex {
+  display: flex;
+  align-items: center;   /* vertical alignment */
+  justify-content: center;
+  gap: 0.6rem;           /* spacing between icon and text */
+}
+
+.service-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes rgbBorderMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .spec-card,
+  .service-card {
+    width: 90%;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+}
