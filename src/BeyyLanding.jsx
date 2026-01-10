@@ -4,9 +4,9 @@ import { Monitor } from "lucide-react";
 import "./beyy.css";
 
 import AOC from "./assets/AOC.jpg";
-import HyperX from "./assets/hyperX.jpeg";
+import HyperX from "./assets/hyperX.jpg";
 import Nvidia from "./assets/nvidia.jpg";
-import Redragon from "./assets/redragon.jpeg";
+import Redragon from "./assets/redragon.jpg";
 
 const images = [AOC, HyperX, Nvidia, Redragon];
 
