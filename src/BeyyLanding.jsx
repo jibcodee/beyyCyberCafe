@@ -25,7 +25,7 @@ export default function BeyyLanding() {
   // Scroll listener for nav active link
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "specs", "services", "contact"];
+      const sections = ["hero", "specs", "services", "contact", "booking"];
       let scrollPos = window.scrollY + 200;
       for (let sec of sections) {
         const el = document.getElementById(sec);
@@ -63,6 +63,7 @@ export default function BeyyLanding() {
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
             <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
+            <a href="#booking" className="nav-button">Reserve Now</a>
           </nav>
         </div>
       </header>
@@ -151,14 +152,10 @@ export default function BeyyLanding() {
           <h2>Contact</h2>
           <p>WhatsApp</p>
           <p>012-3456789</p>
-          
           <p>Email</p>
           <p>contact@beyycybercafe.com</p>
-          
           <p>Address</p>
           <p>Durian Tunggal, Melaka.</p>
-
-
         </section>
       </main>
     </div>
