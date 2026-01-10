@@ -150,6 +150,17 @@ export default function BeyyLanding() {
       </header>
 
       <main>
+        {/* Hero Banner */}
+        <section className="hero-banner">
+          <div className="hero-content">
+            <h1>Welcome to Beyy Cyber Cafe</h1>
+            <p>Experience Next-Gen Gaming with RTX 4060 & i5 13th Gen</p>
+            <button className="hero-btn" onClick={() => scrollTo("booking")}>
+              Book Now
+            </button>
+          </div>
+        </section>
+
         <section id="specs" className="section">
           <h2>PC Specifications</h2>
           <div className="pc-spec-card rgb-border">
