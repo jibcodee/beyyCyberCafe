@@ -10,8 +10,7 @@ export default function BeyyLanding() {
   const [selectedPackage, setSelectedPackage] = useState("Package 1");
   const [showPopup, setShowPopup] = useState(false);
 
-
-  /* ================= SCROLL SPY (OPTIMIZED) ================= */
+  /* ================= SCROLL SPY ================= */
   useEffect(() => {
     const sections = ["specs", "services", "packages", "booking", "contact"];
 
@@ -66,11 +65,10 @@ export default function BeyyLanding() {
       {/* ================= PC SPEC ================= */}
       <section id="specs" className="section">
         <h2>PC Specifications</h2>
-
         <div className="pc-spec-card rgb-border">
           <ul>
             <li>Intel Core i5 13th Gen</li>
-            <li>NVIDIA RTX4060</li>
+            <li>NVIDIA RTX 4060</li>
             <li>16GB DDR5 RAM</li>
             <li>1TB NVMe SSD</li>
             <li>High Refresh Rate Monitor</li>
@@ -79,34 +77,10 @@ export default function BeyyLanding() {
         </div>
       </section>
 
-      {/* ================= PACKAGES ================= */}
-      <section id="packages" className="section">
-        <h2>Packages</h2>
-
-        <div className="package-grid">
-          <div className="package-card rgb-border">
-            <h3>Package 1</h3>
-            <p>RM 8 / 1 Hour</p>
-          </div>
-
-          <div className="package-card rgb-border">
-            <h3>Package 2</h3>
-            <p>RM 21 / 3 Hours</p>
-          </div>
-
-          <div className="package-card rgb-border">
-            <h3>Package 3</h3>
-            <p>RM 35 / 5 Hours</p>
-          </div>
-        </div>
-      </section>
-
       {/* ================= SERVICES ================= */}
       <section id="services" className="section">
         <h2>Service</h2>
-
         <div className="service-grid">
-          {/* PRINTING */}
           <div
             className="service-card rgb-border"
             onClick={() => setShowPrintPrice(!showPrintPrice)}
@@ -124,7 +98,6 @@ export default function BeyyLanding() {
             )}
           </div>
 
-          {/* GAMING */}
           <div
             className="service-card rgb-border"
             onClick={() => scrollTo("specs")}
@@ -137,71 +110,83 @@ export default function BeyyLanding() {
         </div>
       </section>
 
-      import { useState } from "react";
+      {/* ================= PACKAGES ================= */}
+      <section id="packages" className="section">
+        <h2>Packages</h2>
+        <div className="package-grid">
+          <div className="package-card rgb-border">
+            <h3>Package 1</h3>
+            <p>RM 8 / 1 Hour</p>
+          </div>
+          <div className="package-card rgb-border">
+            <h3>Package 2</h3>
+            <p>RM 21 / 3 Hours</p>
+          </div>
+          <div className="package-card rgb-border">
+            <h3>Package 3</h3>
+            <p>RM 45 / 5 Hours</p>
+          </div>
+        </div>
+      </section>
 
-{/* ================= BOOKING ================= */}
-<section id="booking" className="section">
-  <h2>Reserve Your PC</h2>
+      {/* ================= BOOKING ================= */}
+      <section id="booking" className="section">
+        <h2>Reserve Your PC</h2>
 
-  {/* FORM */}
-  <div className="booking-form rgb-border">
-    <input
-      placeholder="Your Name"
-      value={userName}
-      onChange={(e) => setUserName(e.target.value)}
-    />
+        <div className="booking-form rgb-border">
+          <input
+            placeholder="Your Name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
 
-    <select
-      value={selectedPackage}
-      onChange={(e) => setSelectedPackage(e.target.value)}
-    >
-      <option value="Package 1">Package 1</option>
-      <option value="Package 2">Package 2</option>
-      <option value="Package 3">Package 3</option>
-    </select>
+          <select
+            value={selectedPackage}
+            onChange={(e) => setSelectedPackage(e.target.value)}
+          >
+            <option>Package 1</option>
+            <option>Package 2</option>
+            <option>Package 3</option>
+          </select>
 
-    <button onClick={() => setShowPopup(true)}>
-      Reserve Now
-    </button>
-  </div>
-</section>
+          <button onClick={() => setShowPopup(true)}>
+            Reserve Now
+          </button>
+        </div>
+      </section>
 
-{/* ================= POPUP ================= */}
-{showPopup && (
-  <div className="popup-overlay">
-    <div className="popup-box rgb-border">
-      <h3>Confirm Booking?</h3>
+      {/* ================= POPUP ================= */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box rgb-border">
+            <h3>Confirm Booking?</h3>
+            <p><strong>Name:</strong> {userName || "Not provided"}</p>
+            <p><strong>Package:</strong> {selectedPackage}</p>
 
-      <p><strong>Name:</strong> {userName || "Not provided"}</p>
-      <p><strong>Package:</strong> {selectedPackage}</p>
+            <div className="popup-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setShowPopup(false)}
+              >
+                Cancel
+              </button>
 
-      <div className="popup-buttons">
-        <button
-          className="cancel-btn"
-          onClick={() => setShowPopup(false)}
-        >
-          Cancel
-        </button>
-
-        <button className="continue-btn">
-          Continue
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+              <button className="continue-btn">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ================= CONTACT ================= */}
       <section id="contact" className="section">
         <h2>Contact</h2>
-
         <div className="contact-grid">
           <div className="contact-card rgb-border">
             <h4>WhatsApp</h4>
             <p>012-345 6789</p>
           </div>
-
           <div className="contact-card rgb-border">
             <h4>Address</h4>
             <p>Durian Tunggal, Melaka</p>
