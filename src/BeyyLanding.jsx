@@ -283,15 +283,20 @@ export default function BeyyLanding() {
           <div className="service-grid">
             <div
               className="service-card rgb-border"
-              onClick={() => setShowPrintPrice((s) => !s)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") setShowPrintPrice((s) => !s);
-              }}
               aria-pressed={showPrintPrice}
             >
-              <div className="service-head">
+              <div 
+                className="service-head"
+                onClick={() => setShowPrintPrice((s) => !s)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setShowPrintPrice((s) => !s);
+                  }
+                }}
+              >
                 <Printer />
                 <h3>Printing</h3>
               </div>
@@ -309,6 +314,12 @@ export default function BeyyLanding() {
               onClick={() => scrollTo("specs")}
               role="button"
               tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  scrollTo("specs");
+                }
+              }}
             >
               <div className="service-head">
                 <Monitor />
