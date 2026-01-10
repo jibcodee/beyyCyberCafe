@@ -138,9 +138,9 @@ export default function BeyyLanding() {
             <input type="text" placeholder="Your Name" />
             <input type="number" placeholder="Number of Hours" />
             <select>
-              <option value="gaming">Gaming Package</option>
-              <option value="streaming">Streaming Package</option>
-              <option value="casual">Casual Package</option>
+              <option value="gaming">Package 1</option>
+              <option value="streaming">Package 2</option>
+              <option value="casual">Package 3</option>
             </select>
             <button>Reserve Now</button>
           </div>
@@ -149,7 +149,16 @@ export default function BeyyLanding() {
         {/* ================= CONTACT ================= */}
         <section id="contact" className="section">
           <h2>Contact</h2>
-          <p>WhatsApp / Instagram / Walk-in</p>
+          <p>WhatsApp</p>
+          <p>012-3456789</p>
+          
+          <p>Email</p>
+          <p>contact@beyycybercafe.com</p>
+          
+          <p>Address</p>
+          <p>Durian Tunggal, Melaka.</p>
+
+
         </section>
       </main>
     </div>
