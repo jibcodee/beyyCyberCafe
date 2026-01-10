@@ -16,7 +16,8 @@ export default function BeyyLanding() {
   const [showPrinterPrice, setShowPrinterPrice] = useState(false);
   const [highlightPackage, setHighlightPackage] = useState(false);
 
-  const package1Ref = useRef(null); // Ref for Package 1 card
+  const package1Ref = useRef(null);
+  const specDetailRef = useRef(null);
 
   // Auto slide banner
   useEffect(() => {
@@ -53,12 +54,12 @@ export default function BeyyLanding() {
     casual: { title: "Package 3", price: "5 hour / RM 45" }
   };
 
-  // Scroll to Package 1
+  // Scroll to Spec Detail + Package 1
   const scrollToPackage1 = () => {
-    if (package1Ref.current) {
-      package1Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (specDetailRef.current) {
+      const offset = specDetailRef.current.offsetTop - 20; // scroll a little above spec-detail
+      window.scrollTo({ top: offset, behavior: "smooth" });
       setHighlightPackage(true);
-      // Remove highlight after 2 seconds
       setTimeout(() => setHighlightPackage(false), 2000);
     }
   };
@@ -76,8 +77,8 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
             <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
+            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
           </nav>
         </div>
       </header>
@@ -111,7 +112,12 @@ export default function BeyyLanding() {
         {/* PC SPEC */}
         <section id="specs" className="section">
           <h2>PC Spec</h2>
-          <motion.div className="spec-detail" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div
+            className="spec-detail"
+            ref={specDetailRef}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
             <h3>Gaming PC Specification</h3>
             <div className="spec-text">
               <p><strong>CPU:</strong> {specs.gaming.cpu}</p>
@@ -126,7 +132,7 @@ export default function BeyyLanding() {
               <div
                 className={`spec-card ${highlightPackage && idx === 0 ? "highlight" : ""}`}
                 key={idx}
-                ref={idx === 0 ? package1Ref : null} // Ref only for Package 1
+                ref={idx === 0 ? package1Ref : null}
               >
                 <h3>{pkg.title}</h3>
                 <p>{pkg.price}</p>
@@ -154,7 +160,7 @@ export default function BeyyLanding() {
             </div>
             <div
               className="service-card service-flex"
-              onClick={scrollToPackage1} // Scroll to Package 1
+              onClick={scrollToPackage1} // Scroll to spec-detail + highlight
             >
               <Monitor className="service-icon" />
               <span>Gaming PCs</span>

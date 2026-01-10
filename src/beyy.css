@@ -137,7 +137,7 @@ h3 {
   background: #111;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .spec-card::before,
@@ -169,6 +169,7 @@ h3 {
 .spec-card:hover,
 .service-card:hover {
   transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 12px #00ff00;
 }
 
 /* ================= SPEC DETAIL ================= */
@@ -180,11 +181,19 @@ h3 {
   border-radius: 18px;
   background: #0f0f0f;
   text-align: center;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
 }
 
 .spec-text p {
   margin: 0.6rem 0;
   color: #e0e0e0;
+}
+
+/* Highlight Package 1 */
+.spec-card.highlight {
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 20px #00ff00;
+  transform: scale(1.05);
 }
 
 /* ================= SERVICE CARD ================= */
@@ -213,7 +222,6 @@ h3 {
 .service-price p {
   margin: 0.2rem 0; /* spacing between B/W and Color */
 }
-
 
 /* ================= BOOKING FORM ================= */
 .booking-form {
@@ -302,11 +310,4 @@ h3 {
     align-items: center;
     text-align: center;
   }
-}
-
-/* Highlight Package 1 when clicked from Gaming PCs */
-.spec-card.highlight {
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00;
-  transition: all 0.3s ease;
 }
