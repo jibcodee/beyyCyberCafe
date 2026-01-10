@@ -6,6 +6,11 @@ export default function BeyyLanding() {
   const [activeNav, setActiveNav] = useState("specs");
   const [showPrintPrice, setShowPrintPrice] = useState(false);
 
+  const [userName, setUserName] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState("Package 1");
+  const [showPopup, setShowPopup] = useState(false);
+
+
   /* ================= SCROLL SPY (OPTIMIZED) ================= */
   useEffect(() => {
     const sections = ["specs", "services", "packages", "booking", "contact"];
@@ -132,20 +137,60 @@ export default function BeyyLanding() {
         </div>
       </section>
 
-      {/* ================= BOOKING ================= */}
-      <section id="booking" className="section">
-        <h2>Reserve Your PC</h2>
+      import { useState } from "react";
 
-        <div className="booking-form rgb-border">
-          <input placeholder="Your Name" />
-          <select>
-            <option>Package 1</option>
-            <option>Package 2</option>
-            <option>Package 3</option>
-          </select>
-          <button>Reserve Now</button>
-        </div>
-      </section>
+{/* ================= BOOKING ================= */}
+<section id="booking" className="section">
+  <h2>Reserve Your PC</h2>
+
+  {/* FORM */}
+  <div className="booking-form rgb-border">
+    <input
+      placeholder="Your Name"
+      value={userName}
+      onChange={(e) => setUserName(e.target.value)}
+    />
+
+    <select
+      value={selectedPackage}
+      onChange={(e) => setSelectedPackage(e.target.value)}
+    >
+      <option value="Package 1">Package 1</option>
+      <option value="Package 2">Package 2</option>
+      <option value="Package 3">Package 3</option>
+    </select>
+
+    <button onClick={() => setShowPopup(true)}>
+      Reserve Now
+    </button>
+  </div>
+</section>
+
+{/* ================= POPUP ================= */}
+{showPopup && (
+  <div className="popup-overlay">
+    <div className="popup-box rgb-border">
+      <h3>Confirm Booking?</h3>
+
+      <p><strong>Name:</strong> {userName || "Not provided"}</p>
+      <p><strong>Package:</strong> {selectedPackage}</p>
+
+      <div className="popup-buttons">
+        <button
+          className="cancel-btn"
+          onClick={() => setShowPopup(false)}
+        >
+          Cancel
+        </button>
+
+        <button className="continue-btn">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* ================= CONTACT ================= */}
       <section id="contact" className="section">
