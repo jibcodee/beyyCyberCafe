@@ -189,12 +189,9 @@ export default function BeyyLanding() {
                   className={`spec-card always-rgb ${hoveredSpec === pkg.title ? "green-highlight" : ""}`}
                   onMouseEnter={() => setHoveredSpec(pkg.title)}
                   onMouseLeave={() => setHoveredSpec("")}
-                  onClick={() => {
-                    setSelectedPackage(key);
-                    // small visual feedback: scroll to booking when choose? keep simple
-                  }}
+                  onClick={() => setSelectedPackage(key)}
                 >
-                  <h3>{pkg.title}</h3>
+                  <h3 className="spec-title">{pkg.title}</h3>
                   <p>{pkg.price}</p>
                 </div>
               );
@@ -210,14 +207,10 @@ export default function BeyyLanding() {
               className={`service-card always-rgb ${hoveredService === "Printing" ? "green-highlight" : ""}`}
               onMouseEnter={() => setHoveredService("Printing")}
               onMouseLeave={() => setHoveredService("")}
-              onClick={() => {
-                // optional: could open printing details - currently just set active
-                setActiveNav("services");
-              }}
             >
               <div className="service-flex-row">
                 <Printer className="service-icon" />
-                <span>Printing</span>
+                <span className="service-title">Printing</span>
               </div>
             </div>
 
@@ -225,13 +218,11 @@ export default function BeyyLanding() {
               className={`service-card always-rgb ${hoveredService === "Gaming PCs" ? "green-highlight" : ""}`}
               onMouseEnter={() => setHoveredService("Gaming PCs")}
               onMouseLeave={() => setHoveredService("")}
-              onClick={() => {
-                scrollToSection("specs");
-              }}
+              onClick={() => scrollToSection("specs")}
             >
               <div className="service-flex-row">
                 <Monitor className="service-icon" />
-                <span>Gaming PCs</span>
+                <span className="service-title">Gaming PCs</span>
               </div>
             </div>
           </div>
@@ -281,15 +272,15 @@ export default function BeyyLanding() {
           <h2>Contact</h2>
           <div className="contact-grid">
             <div className="contact-item always-rgb">
-              <h3>WhatsApp</h3>
+              <h3 className="contact-title">WhatsApp</h3>
               <p>012-3456789</p>
             </div>
             <div className="contact-item always-rgb">
-              <h3>Email</h3>
+              <h3 className="contact-title">Email</h3>
               <p>contact@beyycybercafe.com</p>
             </div>
             <div className="contact-item always-rgb">
-              <h3>Address</h3>
+              <h3 className="contact-title">Address</h3>
               <p>Durian Tunggal, Melaka</p>
             </div>
           </div>
