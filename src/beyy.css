@@ -89,7 +89,7 @@ h2 {
   margin: 0.2rem 0;
 }
 
-/* Hover RGB border like contact section */
+/* Hover RGB border */
 .spec-card::before {
   content: "";
   position: absolute;
@@ -117,13 +117,15 @@ h2 {
   transition: opacity 0.3s ease;
 }
 
-.spec-card.highlight::before,
-.spec-card:hover::before {
+.spec-card.highlight::before {
   opacity: 1;
 }
 
 .spec-card:hover {
   transform: translateY(-6px) scale(1.05);
+  opacity: 1;
+  cursor: pointer;
+  --border-opacity: 1;
 }
 
 /* ================= SERVICES ================= */
@@ -178,13 +180,13 @@ h2 {
   transition: opacity 0.3s ease;
 }
 
-.service-card.highlight::before,
-.service-card:hover::before {
+.service-card.highlight::before {
   opacity: 1;
 }
 
 .service-card:hover {
   transform: translateY(-6px) scale(1.05);
+  opacity: 1;
 }
 
 /* ================= CONTACT ================= */
@@ -273,8 +275,7 @@ h2 {
 
 .popup-buttons {
   display: flex;
-  justify-content: center;
-  gap: 1rem; /* GAP between Cancel & Continue */
+  justify-content: space-between;
   margin-top: 1rem;
 }
 
