@@ -14,7 +14,7 @@ body {
   top: 0;
   z-index: 100;
   background: rgba(0,0,0,.9);
-  border-bottom: 1px solid rgba(0,255,0,.15);
+  border-bottom: 1px solid rgba(0, 255, 0, 0.15);
 }
 
 .nav-inner {
@@ -30,7 +30,7 @@ body {
   display: flex;
   gap: .5rem;
   align-items: center;
-  color: #00ff99;
+  color: #00ff00;
   font-weight: 700;
   cursor: pointer;
 }
@@ -47,7 +47,7 @@ body {
 
 .nav-links .active {
   color: #000;
-  background: #00ff99;
+  background: #00ff00;
   padding: .35rem .6rem;
   border-radius: 6px;
   font-weight: 700;
@@ -62,7 +62,7 @@ body {
 
 .section h2 {
   text-align: center;
-  color: #00ff99;
+  color: #00ff00;
   margin-bottom: 1.5rem;
 }
 
@@ -140,7 +140,7 @@ body {
 .package-grid {
   display: flex;
   justify-content: center;
-  gap: 1.6rem;
+  gap: 2.6rem;
   flex-wrap: wrap;
 }
 
@@ -150,11 +150,6 @@ body {
   padding: 1.4rem;
 }
 
-.package-card span {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #00ff99;
-}
 
 /* ================= BOOKING ================= */
 .booking-form {
@@ -176,7 +171,7 @@ body {
 }
 
 .booking-form button {
-  background: #00ff99;
+  background: #00ff00;
   border: none;
   padding: .6rem;
   font-weight: 700;

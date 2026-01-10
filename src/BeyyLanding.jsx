@@ -74,6 +74,28 @@ export default function BeyyLanding() {
         </div>
       </section>
 
+      {/* ================= PACKAGES ================= */}
+      <section id="packages" className="section">
+        <h2>Packages</h2>
+
+        <div className="package-grid">
+          <div className="package-card rgb-border">
+            <h3>Package 1</h3>
+            <p>RM 8 / 1 Hour</p>
+          </div>
+
+          <div className="package-card rgb-border">
+            <h3>Package 2</h3>
+            <p>RM 21 / 3 Hours</p>
+          </div>
+
+          <div className="package-card rgb-border">
+            <h3>Package 3</h3>
+            <p>RM 35 / 5 Hours</p>
+          </div>
+        </div>
+      </section>
+
       {/* ================= SERVICES ================= */}
       <section id="services" className="section">
         <h2>Service</h2>
@@ -106,32 +128,6 @@ export default function BeyyLanding() {
               <Monitor />
               <h3>Gaming PCs</h3>
             </div>
-            <p className="service-desc">High performance gaming setup</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PACKAGES ================= */}
-      <section id="packages" className="section">
-        <h2>Packages</h2>
-
-        <div className="package-grid">
-          <div className="package-card rgb-border">
-            <h3>Package 1</h3>
-            <p>1 Hour</p>
-            <span>RM 8</span>
-          </div>
-
-          <div className="package-card rgb-border">
-            <h3>Package 2</h3>
-            <p>3 Hours</p>
-            <span>RM 21</span>
-          </div>
-
-          <div className="package-card rgb-border">
-            <h3>Package 3</h3>
-            <p>5 Hours</p>
-            <span>RM 45</span>
           </div>
         </div>
       </section>
