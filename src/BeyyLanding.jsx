@@ -30,7 +30,7 @@ export default function BeyyLanding() {
   // Scroll listener for nav highlight
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "specs", "services", "booking", "contact"];
+      const sections = ["hero", "specs", "services", "contact", "booking"];
       let scrollPos = window.scrollY + 200;
       for (let sec of sections) {
         const el = document.getElementById(sec);
