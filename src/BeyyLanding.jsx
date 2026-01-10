@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Monitor, Printer } from "lucide-react";
 import "./beyy.css";
@@ -14,7 +14,8 @@ export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
   const [showPrinterPrice, setShowPrinterPrice] = useState(false);
-  const [showGamingPrice, setShowGamingPrice] = useState(false);
+
+  const bookingRef = useRef(null); // Reference to booking section
 
   // Auto slide banner
   useEffect(() => {
@@ -51,9 +52,16 @@ export default function BeyyLanding() {
     casual: { title: "Package 3", price: "5 hour / RM 45" }
   };
 
+  // Function to scroll to booking section
+  const scrollToPackage1 = () => {
+    if (bookingRef.current) {
+      bookingRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="app">
-      {/* ================= NAV ================= */}
+      {/* NAV */}
       <header className="nav">
         <div className="nav-inner">
           <div className="logo">
@@ -64,21 +72,21 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
             <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
+            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
           </nav>
         </div>
       </header>
 
       <main>
-        {/* ================= HERO ================= */}
+        {/* HERO */}
         <section id="hero" className="hero">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1>High Performance Gaming Starts Here</h1>
             <p>Fast PCs, smooth internet, competitive vibes.</p>
           </motion.div>
 
-          {/* ================= IMAGE BANNER ================= */}
+          {/* IMAGE BANNER */}
           <div className="slider-container">
             <AnimatePresence mode="wait">
               <motion.img
@@ -96,7 +104,7 @@ export default function BeyyLanding() {
           </div>
         </section>
 
-        {/* ================= PC SPEC ================= */}
+        {/* PC SPEC */}
         <section id="specs" className="section">
           <h2>PC Spec</h2>
           <motion.div className="spec-detail" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
@@ -119,39 +127,36 @@ export default function BeyyLanding() {
           </div>
         </section>
 
-        {/* ================= SERVICES ================= */}
-<section id="services" className="section">
-  <h2>Service</h2>
-  <div className="service-grid">
-    <div
-      className="service-card service-flex"
-      onClick={() => setShowPrinterPrice(!showPrinterPrice)}
-    >
-      <Printer className="service-icon" />
-      <span>Printing</span>
-      {showPrinterPrice && (
-        <div className="service-price">
-          <p>RM 0.50 per page B/W</p>
-          <p>RM 1.50 per page Color</p>
-        </div>
-      )}
-    </div>
-    <div
-      className="service-card service-flex"
-      onClick={() => setShowGamingPrice(!showGamingPrice)}
-    >
-      <Monitor className="service-icon" />
-      <span>Gaming PCs</span>
-      {showGamingPrice && (
-        <span className="service-price">{specs.gaming.price}</span>
-      )}
-    </div>
-  </div>
-</section>
+        {/* SERVICES */}
+        <section id="services" className="section">
+          <h2>Service</h2>
+          <div className="service-grid">
+            <div
+              className="service-card service-flex"
+              onClick={() => setShowPrinterPrice(!showPrinterPrice)}
+            >
+              <Printer className="service-icon" />
+              <span>Printing</span>
+              {showPrinterPrice && (
+                <div className="service-price">
+                  <p>RM 0.50 per page B/W</p>
+                  <p>RM 1.50 per page Color</p>
+                </div>
+              )}
+            </div>
+            <div
+              className="service-card service-flex"
+              onClick={scrollToPackage1} // Scroll to Package 1
+            >
+              <Monitor className="service-icon" />
+              <span>Gaming PCs</span>
+              <span className="service-price">{specs.gaming.price}</span>
+            </div>
+          </div>
+        </section>
 
-
-        {/* ================= BOOKING FORM ================= */}
-        <section id="booking" className="section">
+        {/* BOOKING FORM */}
+        <section id="booking" ref={bookingRef} className="section">
           <h2>Reserve Your PC</h2>
           <div className="booking-form">
             <input type="text" placeholder="Your Name" />
@@ -165,7 +170,7 @@ export default function BeyyLanding() {
           </div>
         </section>
 
-        {/* ================= CONTACT ================= */}
+        {/* CONTACT */}
         <section id="contact" className="section">
           <h2>Contact</h2>
           <div className="contact-grid">
