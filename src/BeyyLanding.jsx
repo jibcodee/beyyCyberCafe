@@ -64,8 +64,8 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
             <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
+            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
           </nav>
         </div>
       </header>
