@@ -163,9 +163,7 @@ export default function BeyyLanding() {
                   }`}
                   onMouseEnter={() => setHoveredSpec(pkg.title)}
                   onMouseLeave={() => setHoveredSpec("")}
-                  onClick={() => {
-                    setSelectedPackage(key);
-                  }}
+                  onClick={() => setSelectedPackage(key)}
                 >
                   <h3>{pkg.title}</h3>
                   <p>{pkg.price}</p>
@@ -179,7 +177,6 @@ export default function BeyyLanding() {
         <section id="services" className="section">
           <h2>Service</h2>
           <div className="service-grid">
-            {/* Printing */}
             <div
               className={`service-card service-flex ${
                 hoveredService === "Printing" ? "highlight" : ""
@@ -191,7 +188,6 @@ export default function BeyyLanding() {
               <span>Printing</span>
             </div>
 
-            {/* Gaming PCs */}
             <div
               className={`service-card service-flex ${
                 hoveredService === "Gaming PCs" ? "highlight" : ""
