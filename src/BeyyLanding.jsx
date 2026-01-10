@@ -25,7 +25,7 @@ export default function BeyyLanding() {
   // Scroll listener for nav active link
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "specs", "services", "contact", "booking"];
+      const sections = ["hero", "specs", "services", "booking", "contact"];
       let scrollPos = window.scrollY + 200;
       for (let sec of sections) {
         const el = document.getElementById(sec);
@@ -62,8 +62,8 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
+            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
             <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
-            <a href="#booking" className="nav-button">Reserve Now</a>
           </nav>
         </div>
       </header>
@@ -150,12 +150,23 @@ export default function BeyyLanding() {
         {/* ================= CONTACT ================= */}
         <section id="contact" className="section">
           <h2>Contact</h2>
-          <p>WhatsApp</p>
-          <p>012-3456789</p>
-          <p>Email</p>
-          <p>contact@beyycybercafe.com</p>
-          <p>Address</p>
-          <p>Durian Tunggal, Melaka.</p>
+          <div className="contact-grid">
+            <div className="contact-card">
+              <span className="contact-icon">📱</span>
+              <h3>WhatsApp</h3>
+              <p>012-3456789</p>
+            </div>
+            <div className="contact-card">
+              <span className="contact-icon">✉️</span>
+              <h3>Email</h3>
+              <p>contact@beyycybercafe.com</p>
+            </div>
+            <div className="contact-card">
+              <span className="contact-icon">📍</span>
+              <h3>Address</h3>
+              <p>Durian Tunggal, Melaka</p>
+            </div>
+          </div>
         </section>
       </main>
     </div>

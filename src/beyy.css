@@ -52,30 +52,16 @@ a {
 }
 
 .nav-links a {
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.nav-links a.active {
-  color: #00ff00;
-  font-weight: bold;
-}
-
-/* ================= NAV BUTTON ================= */
-.nav-button {
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
-  background: #00ff00;
+  transition: all 0.2s ease;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  background-color: #00ff00;
   color: #000;
   font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.nav-button:hover {
-  transform: scale(1.05);
-  background: #00cc00;
 }
 
 /* ================= HERO ================= */
@@ -92,7 +78,7 @@ a {
 
 /* ================= IMAGE BANNER ================= */
 .slider-container {
-  max-width: 1200px; /* aligned with nav */
+  max-width: 1200px; /* align with nav */
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 20px;
@@ -129,7 +115,8 @@ h3 {
 
 /* ================= GRID ================= */
 .spec-grid,
-.service-grid {
+.service-grid,
+.contact-grid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -243,6 +230,34 @@ h3 {
   transform: scale(1.05);
 }
 
+/* ================= CONTACT SECTION ================= */
+.contact-grid {
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.contact-card {
+  background: #111;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  width: 220px;
+  transition: transform 0.3s ease;
+  position: relative;
+  cursor: default;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.contact-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 /* ================= ANIMATION ================= */
 @keyframes rgbBorderMove {
   0% { background-position: 0% 50%; }
@@ -250,15 +265,10 @@ h3 {
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 1024px) {
-  .slider-container {
-    max-width: 90%;
-  }
-}
-
 @media (max-width: 768px) {
   .spec-card,
-  .service-card {
+  .service-card,
+  .contact-card {
     width: 90%;
   }
 
@@ -270,13 +280,13 @@ h3 {
     height: 260px;
   }
 
-  .nav-links {
+  .nav-inner {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .nav-button {
-    width: 100%;
-    text-align: center;
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
