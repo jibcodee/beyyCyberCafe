@@ -4,6 +4,7 @@ body {
   font-family: 'Orbitron', sans-serif;
   background-color: #0a0a0a;
   color: #e0e0e0;
+  scroll-behavior: smooth; /* smooth scrolling */
 }
 
 a {
@@ -49,6 +50,11 @@ a {
   gap: 2rem;
 }
 
+.nav-links a.active {
+  color: #00ff00;
+  font-weight: bold;
+}
+
 /* ================= HERO ================= */
 .hero {
   text-align: center;
@@ -58,12 +64,13 @@ a {
 .hero h1 {
   color: #00ff00;
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-/* ================= BANNER SLIDER ================= */
-.slider-banner-container {
-  max-width: 1200px;
-  margin: 40px auto;
+/* ================= IMAGE BANNER ================= */
+.slider-container {
+  max-width: 1200px; /* aligned with nav */
+  margin: 2rem auto;
   overflow: hidden;
   border-radius: 20px;
 }
@@ -73,18 +80,10 @@ a {
   height: 500px;
   object-fit: cover;
   cursor: grab;
-  border-radius: 20px;
-  transition: transform 0.3s ease;
 }
 
 .slider-image:active {
   cursor: grabbing;
-}
-
-@media (max-width: 768px) {
-  .slider-image {
-    height: 260px;
-  }
 }
 
 /* ================= SECTION ================= */
@@ -188,6 +187,39 @@ h3 {
   flex-shrink: 0;
 }
 
+/* ================= BOOKING FORM ================= */
+.booking-form {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: #111;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 80%;
+  padding: 0.6rem;
+  margin: 0.8rem 0;
+  border-radius: 8px;
+  border: none;
+}
+
+.booking-form button {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  background: #00ff00;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.booking-form button:hover {
+  transform: scale(1.05);
+}
+
 /* ================= ANIMATION ================= */
 @keyframes rgbBorderMove {
   0% { background-position: 0% 50%; }
@@ -203,5 +235,9 @@ h3 {
 
   .hero h1 {
     font-size: 2.2rem;
+  }
+
+  .slider-image {
+    height: 260px;
   }
 }

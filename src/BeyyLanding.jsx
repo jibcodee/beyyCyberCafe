@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Monitor } from "lucide-react";
+import { Monitor, Printer } from "lucide-react";
 import "./beyy.css";
 
 import AOC from "./assets/AOC.jpg";
@@ -12,12 +12,28 @@ const images = [AOC, HyperX, Nvidia, Redragon];
 
 export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
+  const [activeNav, setActiveNav] = useState("hero");
 
+  // Auto slide every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Scroll listener for nav active link
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["hero", "specs", "services", "contact"];
+      let scrollPos = window.scrollY + 200;
+      for (let sec of sections) {
+        const el = document.getElementById(sec);
+        if (el && el.offsetTop <= scrollPos) setActiveNav(sec);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const specs = {
@@ -29,14 +45,8 @@ export default function BeyyLanding() {
       storage: "1TB NVMe SSD",
       price: "1 hour / RM 8"
     },
-    streaming: {
-      title: "Package 2",
-      price: "3 hour / RM 21"
-    },
-    casual: {
-      title: "Package 3",
-      price: "5 hour / RM 45"
-    }
+    streaming: { title: "Package 2", price: "3 hour / RM 21" },
+    casual: { title: "Package 3", price: "5 hour / RM 45" }
   };
 
   return (
@@ -49,26 +59,24 @@ export default function BeyyLanding() {
             <span>Beyy Cyber Cafe</span>
           </div>
           <nav className="nav-links">
-            <a href="#specs">PC Spec</a>
-            <a href="#services">Service</a>
-            <a href="#contact">Contact</a>
+            <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
+            <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
+            <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
+            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
           </nav>
         </div>
       </header>
 
-      <main className="container">
+      <main>
         {/* ================= HERO ================= */}
-        <section className="hero">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+        <section id="hero" className="hero">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1>High Performance Gaming Starts Here</h1>
             <p>Fast PCs, smooth internet, competitive vibes.</p>
           </motion.div>
 
           {/* ================= IMAGE BANNER ================= */}
-          <div className="slider-banner-container">
+          <div className="slider-container">
             <AnimatePresence mode="wait">
               <motion.img
                 key={index}
@@ -88,12 +96,7 @@ export default function BeyyLanding() {
         {/* ================= PC SPEC ================= */}
         <section id="specs" className="section">
           <h2>PC Spec</h2>
-
-          <motion.div
-            className="spec-detail"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <motion.div className="spec-detail" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
             <h3>Gaming PC Specification</h3>
             <div className="spec-text">
               <p><strong>CPU:</strong> {specs.gaming.cpu}</p>
@@ -104,18 +107,12 @@ export default function BeyyLanding() {
           </motion.div>
 
           <div className="spec-grid">
-            <div className="spec-card">
-              <h3>{specs.gaming.title}</h3>
-              <p>{specs.gaming.price}</p>
-            </div>
-            <div className="spec-card">
-              <h3>{specs.streaming.title}</h3>
-              <p>{specs.streaming.price}</p>
-            </div>
-            <div className="spec-card">
-              <h3>{specs.casual.title}</h3>
-              <p>{specs.casual.price}</p>
-            </div>
+            {Object.values(specs).map((pkg, idx) => (
+              <div className="spec-card" key={idx}>
+                <h3>{pkg.title}</h3>
+                <p>{pkg.price}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -124,9 +121,28 @@ export default function BeyyLanding() {
           <h2>Service</h2>
           <div className="service-grid">
             <div className="service-card service-flex">
-              <Monitor className="service-icon" />
+              <Printer className="service-icon" />
               <span>Printing</span>
             </div>
+            <div className="service-card service-flex">
+              <Monitor className="service-icon" />
+              <span>Gaming PCs</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= BOOKING FORM ================= */}
+        <section id="booking" className="section">
+          <h2>Reserve Your PC</h2>
+          <div className="booking-form">
+            <input type="text" placeholder="Your Name" />
+            <input type="number" placeholder="Number of Hours" />
+            <select>
+              <option value="gaming">Gaming Package</option>
+              <option value="streaming">Streaming Package</option>
+              <option value="casual">Casual Package</option>
+            </select>
+            <button>Reserve Now</button>
           </div>
         </section>
 
