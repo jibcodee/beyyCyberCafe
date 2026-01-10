@@ -11,6 +11,80 @@ body {
   overflow-x: hidden;
 }
 
+/* ================= NAV ================= */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.9);
+  border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: .9rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  color: #00ff00;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links span {
+  cursor: pointer;
+  color: #cfcfcf;
+}
+
+.nav-links .active {
+  color: #000;
+  background: #00ff00;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* ================= IMAGE SLIDER BANNER ================= */
+.slider-container {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.2rem;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.slider-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  cursor: grab;
+  user-select: none;
+}
+
+.slider-image:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 768px) {
+  .slider-image {
+    height: 250px;
+  }
+}
+
 /* ================= HERO BANNER ================= */
 .hero-banner {
   position: relative;
@@ -100,165 +174,6 @@ body {
     padding: 0.8rem 2rem;
     font-size: 1rem;
   }
-}
-
-/* ================= IMAGE SLIDER BANNER ================= */
-.slider-container {
-  max-width: 1200px;
-  margin: 1.5rem auto;
-  padding: 0 1.2rem;
-  overflow: hidden;
-}
-
-.slider-wrapper {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #111;
-}
-
-.slider-track {
-  display: flex;
-  will-change: transform;
-}
-
-.slider-image {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  flex-shrink: 0;
-  user-select: none;
-  cursor: grab;
-}
-
-.slider-image:active {
-  cursor: grabbing;
-}
-
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: #00ff00;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-}
-
-.slider-btn:hover {
-  background: rgba(0, 255, 0, 0.2);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.slider-btn-left {
-  left: 20px;
-}
-
-.slider-btn-right {
-  right: 20px;
-}
-
-.slider-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.slider-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid #00ff00;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.slider-dot.active {
-  background: #00ff00;
-  transform: scale(1.2);
-}
-
-.slider-dot:hover {
-  background: rgba(0, 255, 0, 0.5);
-}
-
-@media (max-width: 768px) {
-  .slider-image {
-    height: 250px;
-  }
-  
-  .slider-btn {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .slider-btn-left {
-    left: 10px;
-  }
-  
-  .slider-btn-right {
-    right: 10px;
-  }
-}
-
-/* ================= NAV ================= */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(0,0,0,.9);
-  border-bottom: 1px solid rgba(0, 255, 0, 0.15);
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: auto;
-  padding: .9rem 1.4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-  color: #00ff00;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.nav-links span {
-  cursor: pointer;
-  color: #cfcfcf;
-}
-
-.nav-links .active {
-  color: #000;
-  background: #00ff00;
-  padding: .35rem .6rem;
-  border-radius: 6px;
-  font-weight: 700;
 }
 
 /* ================= SECTION ================= */
@@ -404,7 +319,7 @@ body {
   padding-top: 1.2rem;
   border-radius: 0 0 16px 16px;
   font-size: 1.1rem;
-  color: #ffffff;
+  color: #00ff00;
   font-weight: 700;
 }
 
@@ -416,6 +331,7 @@ body {
   background: #111;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   padding: 1.5rem;
 }
@@ -424,6 +340,7 @@ body {
 .booking-form select,
 .booking-form button {
   width: 100%;
+  max-width: 350px;
   border-radius: 14px;
   padding: .9rem 1rem;
   border: none;
@@ -431,12 +348,7 @@ body {
   color: #fff;
   font-family: inherit;
   font-size: 0.95rem;
-}
-
-/* Adjust name input width */
-.booking-form input#res-name {
-  width: 70%;
-  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .booking-form input:focus,

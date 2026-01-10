@@ -2,6 +2,11 @@ import React, { useEffect, useState, useRef, useCallback, useMemo } from "react"
 import "./beyy.css";
 import { Monitor, Printer, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 
+import AOC from "./assets/AOC.jpg";
+import HyperX from "./assets/HyperX.jpg";
+import Nvidia from "./assets/nvidia.jpg";
+import Redragon from "./assets/redragon.jpg";
+
 export default function BeyyLanding() {
   const sectionsIds = useMemo(
     () => ["specs", "services", "packages", "booking", "contact"],
@@ -25,13 +30,8 @@ export default function BeyyLanding() {
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
 
-  // Sample slider images - replace with your actual images
-  const sliderImages = [
-    "./assets/AOC.jpg",
-    "./assets/hyperX.jpg",
-    "./assets/nvidia.jpg",
-    "./assets/redragon.jpg"
-  ];
+  // Slider images using imports
+  const sliderImages = useMemo(() => [AOC, HyperX, Nvidia, Redragon], []);
 
   // Refs to DOM nodes for scroll spy
   const sectionsRef = useRef({});
@@ -150,9 +150,9 @@ export default function BeyyLanding() {
     setTranslateX(0);
   }, [isDragging, translateX, nextSlide, prevSlide]);
 
-  // Auto slide every 5 seconds
+  // Auto slide every 3 seconds
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
   }, [nextSlide]);
 
@@ -216,57 +216,20 @@ export default function BeyyLanding() {
 
       {/* Image Slider Banner */}
       <div className="slider-container">
-        <div className="slider-wrapper">
-          <button 
-            className="slider-btn slider-btn-left" 
-            onClick={prevSlide}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft />
-          </button>
-
-          <div
-            className="slider-track"
-            style={{
-              transform: `translateX(calc(-${currentSlide * 100}% + ${translateX}px))`,
-              transition: isDragging ? 'none' : 'transform 0.5s ease',
-            }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-          >
-            {sliderImages.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`Slide ${idx + 1}`}
-                className="slider-image"
-                draggable="false"
-              />
-            ))}
-          </div>
-
-          <button 
-            className="slider-btn slider-btn-right" 
-            onClick={nextSlide}
-            aria-label="Next slide"
-          >
-            <ChevronRight />
-          </button>
-
-          {/* Slider dots */}
-          <div className="slider-dots">
-            {sliderImages.map((_, idx) => (
-              <button
-                key={idx}
-                className={`slider-dot ${currentSlide === idx ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+        <img
+          src={sliderImages[currentSlide]}
+          alt={`Slide ${currentSlide + 1}`}
+          className="slider-image"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          draggable="false"
+          style={{
+            transform: `translateX(${translateX}px)`,
+            transition: isDragging ? 'none' : 'transform 0.8s ease',
+          }}
+        />
       </div>
 
       <main>
@@ -310,7 +273,7 @@ export default function BeyyLanding() {
 
             <div className="package-card rgb-border">
               <h3>Package 3</h3>
-              <p>RM 35 / 5 Hours</p>
+              <p>RM 45 / 5 Hours</p>
             </div>
           </div>
         </section>
