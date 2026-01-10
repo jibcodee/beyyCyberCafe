@@ -170,7 +170,6 @@ export default function BeyyLanding() {
           <h2>Reserve Your PC</h2>
           <div className="booking-form">
             <input type="text" placeholder="Your Name" />
-            <input type="number" placeholder="Number of Hours" />
             <select onChange={(e) => {
               const key = e.target.value;
               setSelectedPackage(specs[key].title);
