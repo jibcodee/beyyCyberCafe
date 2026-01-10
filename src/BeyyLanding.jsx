@@ -20,6 +20,9 @@ export default function BeyyLanding() {
   const [userName, setUserName] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
+  // New: printing toggle state
+  const [printingOpen, setPrintingOpen] = useState(false);
+
   // Auto slide banner
   useEffect(() => {
     const interval = setInterval(() => {
@@ -203,10 +206,22 @@ export default function BeyyLanding() {
         <section id="services" className="section">
           <h2>Service</h2>
           <div className="service-grid">
+            {/* Printing (click toggles prices below) */}
             <div
               className={`service-card always-rgb ${hoveredService === "Printing" ? "green-highlight" : ""}`}
               onMouseEnter={() => setHoveredService("Printing")}
               onMouseLeave={() => setHoveredService("")}
+              onClick={() => setPrintingOpen((p) => !p)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setPrintingOpen((p) => !p);
+                }
+              }}
+              aria-expanded={printingOpen}
+              aria-controls="printing-prices"
             >
               <div className="service-flex-row">
                 <Printer className="service-icon" />
@@ -225,6 +240,16 @@ export default function BeyyLanding() {
                 <span className="service-title">Gaming PCs</span>
               </div>
             </div>
+          </div>
+
+          {/* Printing prices panel (appears below service-grid) */}
+          <div
+            id="printing-prices"
+            className={`printing-prices ${printingOpen ? "show" : ""}`}
+            aria-hidden={!printingOpen}
+          >
+            <p>RM 0.50 per page (B/W)</p>
+            <p>RM 1.50 per page (Color)</p>
           </div>
         </section>
 
