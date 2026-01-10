@@ -27,9 +27,10 @@ export default function BeyyLanding() {
 
   // Sample slider images - replace with your actual images
   const sliderImages = [
-    "https://picsum.photos/1200/420?random=1",
-    "https://picsum.photos/1200/420?random=2",
-    "https://picsum.photos/1200/420?random=3",
+    "./assets/AOC.jpg",
+    "./assets/hyperX.jpg",
+    "./assets/nvidia.jpg",
+    "./assets/redragon.jpg"
   ];
 
   // Refs to DOM nodes for scroll spy
