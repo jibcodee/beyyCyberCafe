@@ -39,14 +39,14 @@ a {
 }
 
 .logo-icon {
-  width: 1.5rem;   /* same size as text */
+  width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.5rem;
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;   /* spacing between nav links */
+  gap: 2rem;
 }
 
 /* ================= HERO ================= */
@@ -58,6 +58,33 @@ a {
 .hero h1 {
   color: #00ff00;
   font-size: 3rem;
+}
+
+/* ================= BANNER SLIDER ================= */
+.slider-banner-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.slider-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  cursor: grab;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.slider-image:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 768px) {
+  .slider-image {
+    height: 260px;
+  }
 }
 
 /* ================= SECTION ================= */
@@ -139,7 +166,7 @@ h3 {
   padding: 2rem;
   border-radius: 18px;
   background: #0f0f0f;
-  text-align: center;   /* center content */
+  text-align: center;
 }
 
 .spec-text p {
@@ -150,9 +177,9 @@ h3 {
 /* ================= SERVICE CARD ================= */
 .service-flex {
   display: flex;
-  align-items: center;   /* vertical alignment */
+  align-items: center;
   justify-content: center;
-  gap: 0.6rem;           /* spacing between icon and text */
+  gap: 0.6rem;
 }
 
 .service-icon {
@@ -177,30 +204,4 @@ h3 {
   .hero h1 {
     font-size: 2.2rem;
   }
-/* ===== BANNER SLIDER ===== */
-.slider-banner {
-  width: 100%;
-  max-width: 2560px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 20px;
-}
-
-.slider-image {
-  width: 100%;
-  height: 900px;
-  object-fit: cover;
-  cursor: grab;
-}
-
-.slider-image:active {
-  cursor: grabbing;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .slider-image {
-    height: 260px;
-  }
-}
 }

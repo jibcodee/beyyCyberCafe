@@ -13,7 +13,6 @@ const images = [AOC, HyperX, Nvidia, Redragon];
 export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
 
-  // Auto slide every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
@@ -69,7 +68,7 @@ export default function BeyyLanding() {
           </motion.div>
 
           {/* ================= IMAGE BANNER ================= */}
-          <div className="slider-container">
+          <div className="slider-banner-container">
             <AnimatePresence mode="wait">
               <motion.img
                 key={index}
@@ -80,7 +79,7 @@ export default function BeyyLanding() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -80 }}
                 transition={{ duration: 0.8 }}
-                draggable={true} // allows drag
+                draggable={true}
               />
             </AnimatePresence>
           </div>
@@ -90,7 +89,6 @@ export default function BeyyLanding() {
         <section id="specs" className="section">
           <h2>PC Spec</h2>
 
-          {/* GAMING PC DETAIL VISIBLE */}
           <motion.div
             className="spec-detail"
             initial={{ opacity: 0, y: 15 }}
@@ -105,7 +103,6 @@ export default function BeyyLanding() {
             </div>
           </motion.div>
 
-          {/* PRICE CARDS */}
           <div className="spec-grid">
             <div className="spec-card">
               <h3>{specs.gaming.title}</h3>
