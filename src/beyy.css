@@ -366,7 +366,7 @@ body {
 
 .print-price p {
   margin: .4rem 0;
-  color: #baffd9;
+  color: #ffffff;
 }
 
 /* ================= PACKAGES ================= */
@@ -404,7 +404,7 @@ body {
   padding-top: 1.2rem;
   border-radius: 0 0 16px 16px;
   font-size: 1.1rem;
-  color: #00ff00;
+  color: #ffffff;
   font-weight: 700;
 }
 
