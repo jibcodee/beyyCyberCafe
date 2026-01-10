@@ -13,11 +13,9 @@ const images = [AOC, HyperX, Nvidia, Redragon];
 export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
-  const [showPrinterPrice, setShowPrinterPrice] = useState(false);
-  const [showGamingPrice, setShowGamingPrice] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState("Package 1");
-  const [selectedPrice, setSelectedPrice] = useState("1 hour / RM 8");
+  const [selectedPackage, setSelectedPackage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [hoveredService, setHoveredService] = useState(""); // for hover highlight
 
   // Auto slide banner
   useEffect(() => {
@@ -30,7 +28,7 @@ export default function BeyyLanding() {
   // Scroll listener for nav highlight
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "specs", "services", "contact","booking"];
+      const sections = ["hero", "specs", "services", "contact", "booking"];
       let scrollPos = window.scrollY + 200;
       for (let sec of sections) {
         const el = document.getElementById(sec);
@@ -54,12 +52,6 @@ export default function BeyyLanding() {
     casual: { title: "Package 3", price: "5 hour / RM 45" },
   };
 
-  const handleReserveClick = (packageKey) => {
-    setSelectedPackage(specs[packageKey].title);
-    setSelectedPrice(specs[packageKey].price);
-    setShowPopup(true);
-  };
-
   return (
     <div className="app">
       {/* NAV */}
@@ -70,11 +62,30 @@ export default function BeyyLanding() {
             <span>Beyy Cyber Cafe</span>
           </div>
           <nav className="nav-links">
-            <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
-            <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
-            <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
-            <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
+            <a href="#hero" className={activeNav === "hero" ? "active" : ""}>
+              Home
+            </a>
+            <a href="#specs" className={activeNav === "specs" ? "active" : ""}>
+              PC Spec
+            </a>
+            <a
+              href="#services"
+              className={activeNav === "services" ? "active" : ""}
+            >
+              Service
+            </a>
+            <a
+              href="#contact"
+              className={activeNav === "contact" ? "active" : ""}
+            >
+              Contact
+            </a>
+            <a
+              href="#booking"
+              className={activeNav === "booking" ? "active" : ""}
+            >
+              Reserve Now
+            </a>
           </nav>
         </div>
       </header>
@@ -82,7 +93,10 @@ export default function BeyyLanding() {
       <main>
         {/* HERO */}
         <section id="hero" className="hero">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
             <h1>High Performance Gaming Starts Here</h1>
             <p>Fast PCs, smooth internet, competitive vibes.</p>
           </motion.div>
@@ -108,13 +122,25 @@ export default function BeyyLanding() {
         {/* PC SPEC */}
         <section id="specs" className="section">
           <h2>PC Spec</h2>
-          <motion.div className="spec-detail" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div
+            className="spec-detail"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
             <h3>Gaming PC Specification</h3>
             <div className="spec-text">
-              <p><strong>CPU:</strong> {specs.gaming.cpu}</p>
-              <p><strong>GPU:</strong> {specs.gaming.gpu}</p>
-              <p><strong>RAM:</strong> {specs.gaming.ram}</p>
-              <p><strong>Storage:</strong> {specs.gaming.storage}</p>
+              <p>
+                <strong>CPU:</strong> {specs.gaming.cpu}
+              </p>
+              <p>
+                <strong>GPU:</strong> {specs.gaming.gpu}
+              </p>
+              <p>
+                <strong>RAM:</strong> {specs.gaming.ram}
+              </p>
+              <p>
+                <strong>Storage:</strong> {specs.gaming.storage}
+              </p>
             </div>
           </motion.div>
 
@@ -122,7 +148,9 @@ export default function BeyyLanding() {
             {Object.values(specs).map((pkg, idx) => (
               <div
                 key={idx}
-                className={`spec-card ${selectedPackage === pkg.title ? "highlight" : ""}`}
+                className={`spec-card ${
+                  selectedPackage === pkg.title ? "highlight" : ""
+                }`}
               >
                 <h3>{pkg.title}</h3>
                 <p>{pkg.price}</p>
@@ -135,33 +163,33 @@ export default function BeyyLanding() {
         <section id="services" className="section">
           <h2>Service</h2>
           <div className="service-grid">
+            {/* Printing */}
             <div
-              className={`service-card service-flex ${selectedPackage === "Printing" ? "highlight" : ""}`}
-              onClick={() => {
-                setShowPrinterPrice(!showPrinterPrice);
-                setSelectedPackage("Printing");
-              }}
+              className={`service-card service-flex ${
+                hoveredService === "Printing" ? "highlight" : ""
+              }`}
+              onMouseEnter={() => setHoveredService("Printing")}
+              onMouseLeave={() => setHoveredService("")}
             >
               <Printer className="service-icon" />
               <span>Printing</span>
-              {showPrinterPrice && (
-                <div className="service-price">
-                  <p>RM 0.50 per page B/W</p>
-                  <p>RM 1.50 per page Color</p>
-                </div>
-              )}
             </div>
+
+            {/* Gaming PCs */}
             <div
-              className={`service-card service-flex ${selectedPackage === "Gaming PCs" ? "highlight" : ""}`}
-              onClick={() => {
-                setShowGamingPrice(!showGamingPrice);
-                document.getElementById("specs").scrollIntoView({ behavior: "smooth" });
-                setSelectedPackage("Gaming PCs");
-              }}
+              className={`service-card service-flex ${
+                hoveredService === "Gaming PCs" ? "highlight" : ""
+              }`}
+              onMouseEnter={() => setHoveredService("Gaming PCs")}
+              onMouseLeave={() => setHoveredService("")}
+              onClick={() =>
+                document
+                  .getElementById("specs")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
             >
               <Monitor className="service-icon" />
               <span>Gaming PCs</span>
-              {showGamingPrice && <span className="service-price">{specs.gaming.price}</span>}
             </div>
           </div>
         </section>
@@ -171,11 +199,12 @@ export default function BeyyLanding() {
           <h2>Reserve Your PC</h2>
           <div className="booking-form">
             <input type="text" placeholder="Your Name" />
-            <select onChange={(e) => {
-              const key = e.target.value;
-              setSelectedPackage(specs[key].title);
-              setSelectedPrice(specs[key].price);
-            }}>
+            <select
+              onChange={(e) => {
+                const key = e.target.value;
+                setSelectedPackage(specs[key].title);
+              }}
+            >
               <option value="gaming">Package 1</option>
               <option value="streaming">Package 2</option>
               <option value="casual">Package 3</option>
@@ -189,10 +218,19 @@ export default function BeyyLanding() {
           <div className="popup-overlay">
             <div className="popup">
               <h3>Confirm Booking</h3>
-              <p>Confirm book <strong>{selectedPackage}</strong> for <strong>{selectedPrice}</strong>?</p>
+              <p>
+                Confirm book <strong>{selectedPackage}</strong>?
+              </p>
               <div className="popup-buttons">
-                <button className="cancel-btn" onClick={() => setShowPopup(false)}>Cancel</button>
-                <button className="continue-btn" disabled>Continue</button>
+                <button
+                  className="cancel-btn"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
+                <button className="continue-btn" disabled>
+                  Continue
+                </button>
               </div>
             </div>
           </div>
@@ -202,15 +240,15 @@ export default function BeyyLanding() {
         <section id="contact" className="section">
           <h2>Contact</h2>
           <div className="contact-grid">
-            <div className={`contact-item ${selectedPackage === "WhatsApp" ? "highlight" : ""}`}>
+            <div className={`contact-item`}>
               <h3>WhatsApp</h3>
               <p>012-3456789</p>
             </div>
-            <div className={`contact-item ${selectedPackage === "Email" ? "highlight" : ""}`}>
+            <div className={`contact-item`}>
               <h3>Email</h3>
               <p>contact@beyycybercafe.com</p>
             </div>
-            <div className={`contact-item ${selectedPackage === "Address" ? "highlight" : ""}`}>
+            <div className={`contact-item`}>
               <h3>Address</h3>
               <p>Durian Tunggal, Melaka</p>
             </div>
