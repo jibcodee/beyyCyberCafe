@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import "./beyy.css";
-import { Monitor, Printer, Menu, X } from "lucide-react";
+import { Monitor, Printer, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function BeyyLanding() {
   const sectionsIds = useMemo(
@@ -18,6 +18,20 @@ export default function BeyyLanding() {
 
   // Confirmation popup state
   const [showConfirm, setShowConfirm] = useState(false);
+
+  // Slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+
+  // Sample slider images - replace with your actual images
+  const sliderImages = [
+    "/src/assets/AOC.jpg", // Gaming setup 1
+    "/src/assets/hyperX.jpg", // Gaming setup 2
+    "/src/assets/nvidia.jpg", // Gaming setup 3
+    "/src/assets/redragon.jpg", // Gaming setup 4
+  ];
 
   // Refs to DOM nodes for scroll spy
   const sectionsRef = useRef({});
@@ -91,6 +105,47 @@ export default function BeyyLanding() {
     // Intentionally not closing the popup per request
   }, [name, packageChoice]);
 
+  // Slider functions
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+  }, [sliderImages.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
+  }, [sliderImages.length]);
+
+  const handleMouseDown = useCallback((e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - translateX);
+  }, [translateX]);
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      const x = e.pageX - startX;
+      setTranslateX(x);
+    },
+    [isDragging, startX]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    
+    if (translateX < -100) {
+      nextSlide();
+    } else if (translateX > 100) {
+      prevSlide();
+    }
+    setTranslateX(0);
+  }, [isDragging, translateX, nextSlide, prevSlide]);
+
+  // Auto slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
   return (
     <div className="app">
       <header className="nav" role="banner">
@@ -149,6 +204,61 @@ export default function BeyyLanding() {
         </div>
       </header>
 
+      {/* Image Slider Banner */}
+      <div className="slider-container">
+        <div className="slider-wrapper">
+          <button 
+            className="slider-btn slider-btn-left" 
+            onClick={prevSlide}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft />
+          </button>
+
+          <div
+            className="slider-track"
+            style={{
+              transform: `translateX(calc(-${currentSlide * 100}% + ${translateX}px))`,
+              transition: isDragging ? 'none' : 'transform 0.5s ease',
+            }}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            {sliderImages.map((img, idx) => (
+              <img
+                key={idx}
+                src={img}
+                alt={`Slide ${idx + 1}`}
+                className="slider-image"
+                draggable="false"
+              />
+            ))}
+          </div>
+
+          <button 
+            className="slider-btn slider-btn-right" 
+            onClick={nextSlide}
+            aria-label="Next slide"
+          >
+            <ChevronRight />
+          </button>
+
+          {/* Slider dots */}
+          <div className="slider-dots">
+            {sliderImages.map((_, idx) => (
+              <button
+                key={idx}
+                className={`slider-dot ${currentSlide === idx ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
       <main>
         {/* Hero Banner */}
         <section className="hero-banner">
@@ -190,7 +300,7 @@ export default function BeyyLanding() {
 
             <div className="package-card rgb-border">
               <h3>Package 3</h3>
-              <p>RM 35 / 5 Hours</p>
+              <p>RM 45 / 5 Hours</p>
             </div>
           </div>
         </section>
