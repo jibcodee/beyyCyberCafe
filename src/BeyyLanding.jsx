@@ -279,55 +279,55 @@ export default function BeyyLanding() {
         </section>
 
         <section id="services" className="section">
-          <h2>Service</h2>
-          <div className="service-grid">
-            <div
-              className="service-card rgb-border"
-              role="button"
-              tabIndex={0}
-              aria-pressed={showPrintPrice}
-            >
-              <div 
-                className="service-head"
-                onClick={() => setShowPrintPrice((s) => !s)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setShowPrintPrice((s) => !s);
-                  }
-                }}
-              >
-                <Printer />
-                <h3>Printing</h3>
-              </div>
+  <h2>Service</h2>
+  <div className="service-grid">
+    {/* Printing Card - Interactive toggle */}
+    <div
+      className="service-card rgb-border"
+      role="button"
+      tabIndex={0}
+      aria-pressed={showPrintPrice}
+      onClick={() => setShowPrintPrice((s) => !s)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setShowPrintPrice((s) => !s);
+        }
+      }}
+    >
+      <div className="service-head">
+        <Printer />
+        <h3>Printing</h3>
+      </div>
 
-              {showPrintPrice && (
-                <div className="print-price" aria-live="polite">
-                  <p>RM 0.50 / page B&W</p>
-                  <p>RM 1.50 / page Color</p>
-                </div>
-              )}
-            </div>
+      {showPrintPrice && (
+        <div className="print-price" aria-live="polite">
+          <p>RM 0.50 / page B&W</p>
+          <p>RM 1.50 / page Color</p>
+        </div>
+      )}
+    </div>
 
-            <div
-              className="service-card rgb-border"
-              onClick={() => scrollTo("specs")}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  scrollTo("specs");
-                }
-              }}
-            >
-              <div className="service-head">
-                <Monitor />
-                <h3>Gaming PCs</h3>
-              </div>
-            </div>
-          </div>
-        </section>
+    {/* Gaming PCs Card - Navigation link */}
+    <div
+      className="service-card rgb-border"
+      onClick={() => scrollTo("specs")}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          scrollTo("specs");
+        }
+      }}
+    >
+      <div className="service-head">
+        <Monitor />
+        <h3>Gaming PCs</h3>
+      </div>
+    </div>
+  </div>
+</section>
 
         <section id="booking" className="section">
           <h2>Reserve Your PC</h2>
