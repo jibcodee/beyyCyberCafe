@@ -27,10 +27,9 @@ export default function BeyyLanding() {
 
   // Sample slider images - replace with your actual images
   const sliderImages = [
-    "/src/assets/AOC.jpg", // Gaming setup 1
-    "/src/assets/hyperX.jpg", // Gaming setup 2
-    "/src/assets/nvidia.jpg", // Gaming setup 3
-    "/src/assets/redragon.jpg", // Gaming setup 4
+    "https://picsum.photos/1200/420?random=1",
+    "https://picsum.photos/1200/420?random=2",
+    "https://picsum.photos/1200/420?random=3",
   ];
 
   // Refs to DOM nodes for scroll spy
@@ -104,6 +103,16 @@ export default function BeyyLanding() {
     console.log("Continue clicked. Booking details:", { name, packageChoice });
     // Intentionally not closing the popup per request
   }, [name, packageChoice]);
+
+  // Get package price based on selection
+  const getPackagePrice = useCallback((packageName) => {
+    const prices = {
+      "Package 1": "RM 8",
+      "Package 2": "RM 21",
+      "Package 3": "RM 45"
+    };
+    return prices[packageName] || "RM 0";
+  }, []);
 
   // Slider functions
   const nextSlide = useCallback(() => {
@@ -300,7 +309,7 @@ export default function BeyyLanding() {
 
             <div className="package-card rgb-border">
               <h3>Package 3</h3>
-              <p>RM 45 / 5 Hours</p>
+              <p>RM 35 / 5 Hours</p>
             </div>
           </div>
         </section>
@@ -403,6 +412,9 @@ export default function BeyyLanding() {
             </p>
             <p>
               <strong>Package:</strong> {packageChoice}
+            </p>
+            <p>
+              <strong>Price:</strong> {getPackagePrice(packageChoice)}
             </p>
 
             <div className="popup-buttons">
