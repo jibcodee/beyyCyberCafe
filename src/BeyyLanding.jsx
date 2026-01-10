@@ -13,12 +13,10 @@ const images = [AOC, HyperX, Nvidia, Redragon];
 export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
+  const [showPrinterPrice, setShowPrinterPrice] = useState(false);
+  const [showGamingPrice, setShowGamingPrice] = useState(false);
 
-  // Toggle states for services
-  const [showPrinting, setShowPrinting] = useState(false);
-  const [showGaming, setShowGaming] = useState(false);
-
-  // Auto slide every 3 seconds
+  // Auto slide banner
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
@@ -26,7 +24,7 @@ export default function BeyyLanding() {
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll listener for nav active link
+  // Scroll listener for nav highlight
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["hero", "specs", "services", "booking", "contact"];
@@ -66,7 +64,7 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve</a>
+            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
             <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
           </nav>
         </div>
@@ -125,31 +123,26 @@ export default function BeyyLanding() {
         <section id="services" className="section">
           <h2>Service</h2>
           <div className="service-grid">
-
-            {/* Printing Service */}
-            <div 
-              className="service-card service-flex" 
-              onClick={() => setShowPrinting((prev) => !prev)}
+            <div
+              className="service-card service-flex"
+              onClick={() => setShowPrinterPrice(!showPrinterPrice)}
             >
               <Printer className="service-icon" />
               <span>Printing</span>
-              {showPrinting && (
-                <p className="service-price">Price: RM 0.50 per page</p>
+              {showPrinterPrice && (
+                <span className="service-price">RM 0.50 per page (Color & B/W)</span>
               )}
             </div>
-
-            {/* Gaming PC Service */}
-            <div 
+            <div
               className="service-card service-flex"
-              onClick={() => setShowGaming((prev) => !prev)}
+              onClick={() => setShowGamingPrice(!showGamingPrice)}
             >
               <Monitor className="service-icon" />
               <span>Gaming PCs</span>
-              {showGaming && (
-                <p className="service-price">Price: RM 8 per hour</p>
+              {showGamingPrice && (
+                <span className="service-price">{specs.gaming.price}</span>
               )}
             </div>
-
           </div>
         </section>
 
@@ -172,15 +165,15 @@ export default function BeyyLanding() {
         <section id="contact" className="section">
           <h2>Contact</h2>
           <div className="contact-grid">
-            <div>
+            <div className="contact-item">
               <h3>WhatsApp</h3>
               <p>012-3456789</p>
             </div>
-            <div>
+            <div className="contact-item">
               <h3>Email</h3>
               <p>contact@beyycybercafe.com</p>
             </div>
-            <div>
+            <div className="contact-item">
               <h3>Address</h3>
               <p>Durian Tunggal, Melaka</p>
             </div>
