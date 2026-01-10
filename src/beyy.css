@@ -177,39 +177,30 @@ h3 {
   .hero h1 {
     font-size: 2.2rem;
   }
-}
-
-.slider-container {
-  position: relative;
+/* ===== BANNER SLIDER ===== */
+.slider-banner {
   width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 1100px;
+  margin: 40px auto;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 20px;
 }
 
 .slider-image {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 12px;
+  height: 420px;
+  object-fit: cover;
+  cursor: grab;
 }
 
-.slider-controls {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
+.slider-image:active {
+  cursor: grabbing;
 }
 
-.slider-controls button {
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 18px;
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .slider-image {
+    height: 260px;
+  }
+}
 }
