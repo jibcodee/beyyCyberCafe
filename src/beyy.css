@@ -224,6 +224,46 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid rgba(0,255,0,0.18);
 }
 
+/* ================= PRINTING PANEL INSIDE CARD ================= */
+.service-card.printing-open {
+  /* keep layout space for the panel when open so the card grows smoothly */
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, min-height 0.28s ease;
+  min-height: 140px;
+}
+
+.printing-panel {
+  width: 100%;
+  margin-top: 0.6rem;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.65);
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height 0.32s ease, opacity 0.32s ease, transform 0.32s ease, padding 0.32s ease;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.printing-panel.show {
+  padding: 0.65rem 0.6rem;
+  max-height: 160px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.printing-panel p {
+  margin: 0.28rem 0;
+  color: #dfe;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Make sure the printing panel is keyboard focusable if needed */
+.printing-panel:focus {
+  outline: 2px solid rgba(0,255,0,0.15);
+}
+
 /* ================= BOOKING FORM ================= */
 .booking-form {
   display: flex;
@@ -257,7 +297,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
 }
 
-/* ================= POPUP ================= */
+/* ================= POPUP (unchanged) ================= */
 .popup-overlay {
   position: fixed;
   inset: 0;
@@ -299,37 +339,6 @@ a { color: inherit; text-decoration: none; }
 
 .cancel-btn { background: #333; color: #fff; }
 .continue-btn { background: #00ff00; color: #000; opacity: 0.95; }
-
-/* ================= PRINTING PRICES PANEL ================= */
-.printing-prices {
-  max-width: 680px;
-  margin: 0.8rem auto 0;
-  background: #0b0b0b;
-  border-radius: 10px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease;
-  padding: 0 1rem;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.03);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-}
-
-.printing-prices.show {
-  max-height: 160px; /* enough for two lines */
-  opacity: 1;
-  transform: translateY(0);
-  padding: 0.8rem 1rem;
-}
-
-.printing-prices p {
-  margin: 0.45rem 0;
-  color: #dfe;
-  font-weight: 700;
-  font-size: 0.98rem;
-}
 
 /* ================= ANIMATION ================= */
 @keyframes rgbBorderMove {

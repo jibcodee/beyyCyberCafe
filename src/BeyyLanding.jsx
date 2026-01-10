@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Monitor, Printer } from "lucide-react";
 import "./beyy.css";
@@ -16,12 +16,12 @@ export default function BeyyLanding() {
   const [hoveredService, setHoveredService] = useState("");
   const [hoveredSpec, setHoveredSpec] = useState("");
   const [selectedPackage, setSelectedPackage] = useState("gaming");
-  const [selectedPrice, setSelectedPrice] = useState("");
   const [userName, setUserName] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
-  // New: printing toggle state
+  // printing panel inside the service card
   const [printingOpen, setPrintingOpen] = useState(false);
+  const printingRef = useRef(null);
 
   // Auto slide banner
   useEffect(() => {
@@ -31,23 +31,59 @@ export default function BeyyLanding() {
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll listener for nav highlight
+  // IntersectionObserver for robust nav highlight
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "specs", "services", "booking", "contact"];
-      const offset = 220; // account for sticky nav
-      const scrollPos = window.scrollY + offset;
-      for (const sec of sections) {
-        const el = document.getElementById(sec);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveNav(sec);
+    const ids = ["hero", "specs", "services", "booking", "contact"];
+    const sectionElements = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sectionElements.length) return;
+
+    let observer = new IntersectionObserver(
+      (entries) => {
+        // pick the entry with largest intersectionRatio (most visible)
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible.length > 0) {
+          setActiveNav(visible[0].target.id);
+        } else {
+          // if none intersecting, keep last known or fallback to hero
+          // do nothing (keeps previous activeNav)
         }
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -40% 0px", // tunes when a section is considered 'active'
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    );
+
+    sectionElements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
+
+  // Close printing panel when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (printingOpen && printingRef.current && !printingRef.current.contains(e.target)) {
+        setPrintingOpen(false);
+      }
+    }
+    if (printingOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [printingOpen]);
+
+  // Close printing panel when user scrolls away from services
+  useEffect(() => {
+    if (activeNav !== "services" && printingOpen) {
+      setPrintingOpen(false);
+    }
+  }, [activeNav, printingOpen]);
 
   const specs = {
     gaming: {
@@ -66,12 +102,11 @@ export default function BeyyLanding() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveNav(id);
+      // activeNav will update via IntersectionObserver
     }
   };
 
   const handleReserveClick = () => {
-    setSelectedPrice(specs[selectedPackage].price);
     setShowPopup(true);
   };
 
@@ -206,9 +241,10 @@ export default function BeyyLanding() {
         <section id="services" className="section">
           <h2>Service</h2>
           <div className="service-grid">
-            {/* Printing (click toggles prices below) */}
+            {/* Printing (expand inside card) */}
             <div
-              className={`service-card always-rgb ${hoveredService === "Printing" ? "green-highlight" : ""}`}
+              ref={printingRef}
+              className={`service-card always-rgb ${hoveredService === "Printing" ? "green-highlight" : ""} ${printingOpen ? "printing-open" : ""}`}
               onMouseEnter={() => setHoveredService("Printing")}
               onMouseLeave={() => setHoveredService("")}
               onClick={() => setPrintingOpen((p) => !p)}
@@ -221,11 +257,17 @@ export default function BeyyLanding() {
                 }
               }}
               aria-expanded={printingOpen}
-              aria-controls="printing-prices"
+              aria-controls="printing-panel"
             >
               <div className="service-flex-row">
                 <Printer className="service-icon" />
                 <span className="service-title">Printing</span>
+              </div>
+
+              {/* Printing panel inside card */}
+              <div id="printing-panel" className={`printing-panel ${printingOpen ? "show" : ""}`} onClick={(e) => e.stopPropagation()}>
+                <p>RM 0.50 per page (B/W)</p>
+                <p>RM 1.50 per page (Color)</p>
               </div>
             </div>
 
@@ -240,16 +282,6 @@ export default function BeyyLanding() {
                 <span className="service-title">Gaming PCs</span>
               </div>
             </div>
-          </div>
-
-          {/* Printing prices panel (appears below service-grid) */}
-          <div
-            id="printing-prices"
-            className={`printing-prices ${printingOpen ? "show" : ""}`}
-            aria-hidden={!printingOpen}
-          >
-            <p>RM 0.50 per page (B/W)</p>
-            <p>RM 1.50 per page (Color)</p>
           </div>
         </section>
 
