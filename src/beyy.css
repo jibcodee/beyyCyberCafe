@@ -1,4 +1,4 @@
-/* ================= CONTACT ================= */
+/* ================= CONTACT GRID ================= */
 .contact-grid {
   display: flex;
   justify-content: center;
@@ -7,6 +7,7 @@
   margin-top: 2rem;
 }
 
+/* ================= CONTACT ITEM ================= */
 .contact-item {
   position: relative;
   width: 220px;
@@ -15,9 +16,11 @@
   background: #111;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
+/* ================= CONTACT TEXT ================= */
 .contact-item h3 {
   color: #00ff00;
   margin-bottom: 0.5rem;
@@ -28,7 +31,7 @@
   margin: 0.2rem 0;
 }
 
-/* RGB Border Animation */
+/* ================= RGB BORDER ================= */
 .contact-item::before {
   content: "";
   position: absolute;
@@ -54,13 +57,35 @@
   pointer-events: none;
 }
 
+/* ================= HOVER EFFECT ================= */
 .contact-item:hover {
   transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 12px #00ff00;
 }
 
-/* Highlight Selected Item */
+/* ================= HIGHLIGHTED ITEM ================= */
 .contact-item.highlight {
   border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00;
+  box-shadow: 0 0 20px #00ff00;
   transition: all 0.3s ease;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .contact-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    width: 90%;
+    padding: 1.2rem;
+  }
+}
+
+/* ================= ANIMATION ================= */
+@keyframes rgbBorderMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
 }
