@@ -13,9 +13,12 @@ const images = [AOC, HyperX, Nvidia, Redragon];
 export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
-  const [selectedPackage, setSelectedPackage] = useState("");
+  const [hoveredService, setHoveredService] = useState("");
+  const [hoveredSpec, setHoveredSpec] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState("gaming");
+  const [selectedPrice, setSelectedPrice] = useState("");
+  const [userName, setUserName] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [hoveredService, setHoveredService] = useState(""); // for hover highlight
 
   // Auto slide banner
   useEffect(() => {
@@ -50,6 +53,11 @@ export default function BeyyLanding() {
     },
     streaming: { title: "Package 2", price: "3 hour / RM 21" },
     casual: { title: "Package 3", price: "5 hour / RM 45" },
+  };
+
+  const handleReserveClick = () => {
+    setSelectedPrice(specs[selectedPackage].price);
+    setShowPopup(true);
   };
 
   return (
@@ -145,17 +153,25 @@ export default function BeyyLanding() {
           </motion.div>
 
           <div className="spec-grid">
-            {Object.values(specs).map((pkg, idx) => (
-              <div
-                key={idx}
-                className={`spec-card ${
-                  selectedPackage === pkg.title ? "highlight" : ""
-                }`}
-              >
-                <h3>{pkg.title}</h3>
-                <p>{pkg.price}</p>
-              </div>
-            ))}
+            {Object.keys(specs).map((key, idx) => {
+              const pkg = specs[key];
+              return (
+                <div
+                  key={idx}
+                  className={`spec-card ${
+                    hoveredSpec === pkg.title ? "highlight" : ""
+                  }`}
+                  onMouseEnter={() => setHoveredSpec(pkg.title)}
+                  onMouseLeave={() => setHoveredSpec("")}
+                  onClick={() => {
+                    setSelectedPackage(key);
+                  }}
+                >
+                  <h3>{pkg.title}</h3>
+                  <p>{pkg.price}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -198,18 +214,21 @@ export default function BeyyLanding() {
         <section id="booking" className="section">
           <h2>Reserve Your PC</h2>
           <div className="booking-form">
-            <input type="text" placeholder="Your Name" />
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
             <select
-              onChange={(e) => {
-                const key = e.target.value;
-                setSelectedPackage(specs[key].title);
-              }}
+              onChange={(e) => setSelectedPackage(e.target.value)}
+              value={selectedPackage}
             >
               <option value="gaming">Package 1</option>
               <option value="streaming">Package 2</option>
               <option value="casual">Package 3</option>
             </select>
-            <button onClick={() => setShowPopup(true)}>Reserve Now</button>
+            <button onClick={handleReserveClick}>Reserve Now</button>
           </div>
         </section>
 
@@ -219,7 +238,13 @@ export default function BeyyLanding() {
             <div className="popup">
               <h3>Confirm Booking</h3>
               <p>
-                Confirm book <strong>{selectedPackage}</strong>?
+                <strong>Name:</strong> {userName || "(not provided)"}
+              </p>
+              <p>
+                <strong>Package:</strong> {specs[selectedPackage].title}
+              </p>
+              <p>
+                <strong>Price:</strong> {specs[selectedPackage].price}
               </p>
               <div className="popup-buttons">
                 <button
@@ -240,15 +265,15 @@ export default function BeyyLanding() {
         <section id="contact" className="section">
           <h2>Contact</h2>
           <div className="contact-grid">
-            <div className={`contact-item`}>
+            <div className="contact-item">
               <h3>WhatsApp</h3>
               <p>012-3456789</p>
             </div>
-            <div className={`contact-item`}>
+            <div className="contact-item">
               <h3>Email</h3>
               <p>contact@beyycybercafe.com</p>
             </div>
-            <div className={`contact-item`}>
+            <div className="contact-item">
               <h3>Address</h3>
               <p>Durian Tunggal, Melaka</p>
             </div>
