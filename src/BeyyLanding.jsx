@@ -15,7 +15,7 @@ export default function BeyyLanding() {
   const [activeNav, setActiveNav] = useState("hero");
   const [hoveredService, setHoveredService] = useState("");
   const [hoveredSpec, setHoveredSpec] = useState("");
-  const [selectedPackage, setSelectedPackage] = useState("gaming"); // keys: gaming, streaming, casual
+  const [selectedPackage, setSelectedPackage] = useState("gaming");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [userName, setUserName] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -32,14 +32,17 @@ export default function BeyyLanding() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["hero", "specs", "services", "booking", "contact"];
-      let scrollPos = window.scrollY + 220; // offset for sticky nav
-      for (let sec of sections) {
+      const offset = 220; // account for sticky nav
+      const scrollPos = window.scrollY + offset;
+      for (const sec of sections) {
         const el = document.getElementById(sec);
-        if (el && el.offsetTop <= scrollPos) setActiveNav(sec);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveNav(sec);
+        }
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -56,6 +59,14 @@ export default function BeyyLanding() {
     casual: { title: "Package 3", price: "5 hour / RM 45" },
   };
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveNav(id);
+    }
+  };
+
   const handleReserveClick = () => {
     setSelectedPrice(specs[selectedPackage].price);
     setShowPopup(true);
@@ -66,32 +77,62 @@ export default function BeyyLanding() {
       {/* NAV */}
       <header className="nav">
         <div className="nav-inner">
-          <div className="logo">
+          <div className="logo" onClick={() => scrollToSection("hero")}>
             <Monitor className="logo-icon" />
             <span>Beyy Cyber Cafe</span>
           </div>
 
-          <nav className="nav-links">
-            <a href="#hero" className={activeNav === "hero" ? "active" : ""}>
+          <nav className="nav-links" role="navigation" aria-label="main">
+            <a
+              href="#hero"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("hero");
+              }}
+              className={activeNav === "hero" ? "active" : ""}
+            >
               Home
             </a>
-            <a href="#specs" className={activeNav === "specs" ? "active" : ""}>
+
+            <a
+              href="#specs"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("specs");
+              }}
+              className={activeNav === "specs" ? "active" : ""}
+            >
               PC Spec
             </a>
+
             <a
               href="#services"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("services");
+              }}
               className={activeNav === "services" ? "active" : ""}
             >
               Service
             </a>
+
             <a
               href="#booking"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("booking");
+              }}
               className={activeNav === "booking" ? "active" : ""}
             >
               Reserve Now
             </a>
+
             <a
               href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("contact");
+              }}
               className={activeNav === "contact" ? "active" : ""}
             >
               Contact
@@ -108,7 +149,6 @@ export default function BeyyLanding() {
             <p>Fast PCs, smooth internet, competitive vibes.</p>
           </motion.div>
 
-          {/* IMAGE BANNER (aligned to max-width 1200 like nav) */}
           <div className="slider-container">
             <AnimatePresence mode="wait">
               <motion.img
@@ -141,15 +181,18 @@ export default function BeyyLanding() {
           </motion.div>
 
           <div className="spec-grid">
-            {Object.keys(specs).map((key, idx) => {
+            {Object.keys(specs).map((key) => {
               const pkg = specs[key];
               return (
                 <div
                   key={key}
-                  className={`spec-card ${hoveredSpec === pkg.title ? "highlight" : ""}`}
+                  className={`spec-card always-rgb ${hoveredSpec === pkg.title ? "green-highlight" : ""}`}
                   onMouseEnter={() => setHoveredSpec(pkg.title)}
                   onMouseLeave={() => setHoveredSpec("")}
-                  onClick={() => setSelectedPackage(key)}
+                  onClick={() => {
+                    setSelectedPackage(key);
+                    // small visual feedback: scroll to booking when choose? keep simple
+                  }}
                 >
                   <h3>{pkg.title}</h3>
                   <p>{pkg.price}</p>
@@ -164,25 +207,32 @@ export default function BeyyLanding() {
           <h2>Service</h2>
           <div className="service-grid">
             <div
-              className={`service-card service-flex ${hoveredService === "Printing" ? "highlight" : ""}`}
+              className={`service-card always-rgb ${hoveredService === "Printing" ? "green-highlight" : ""}`}
               onMouseEnter={() => setHoveredService("Printing")}
               onMouseLeave={() => setHoveredService("")}
-              // clicking printing could toggle price UI if you want; kept simple here
+              onClick={() => {
+                // optional: could open printing details - currently just set active
+                setActiveNav("services");
+              }}
             >
-              <Printer className="service-icon" />
-              <span>Printing</span>
+              <div className="service-flex-row">
+                <Printer className="service-icon" />
+                <span>Printing</span>
+              </div>
             </div>
 
             <div
-              className={`service-card service-flex ${hoveredService === "Gaming PCs" ? "highlight" : ""}`}
+              className={`service-card always-rgb ${hoveredService === "Gaming PCs" ? "green-highlight" : ""}`}
               onMouseEnter={() => setHoveredService("Gaming PCs")}
               onMouseLeave={() => setHoveredService("")}
               onClick={() => {
-                document.getElementById("specs")?.scrollIntoView({ behavior: "smooth" });
+                scrollToSection("specs");
               }}
             >
-              <Monitor className="service-icon" />
-              <span>Gaming PCs</span>
+              <div className="service-flex-row">
+                <Monitor className="service-icon" />
+                <span>Gaming PCs</span>
+              </div>
             </div>
           </div>
         </section>
@@ -230,15 +280,15 @@ export default function BeyyLanding() {
         <section id="contact" className="section">
           <h2>Contact</h2>
           <div className="contact-grid">
-            <div className="contact-item">
+            <div className="contact-item always-rgb">
               <h3>WhatsApp</h3>
               <p>012-3456789</p>
             </div>
-            <div className="contact-item">
+            <div className="contact-item always-rgb">
               <h3>Email</h3>
               <p>contact@beyycybercafe.com</p>
             </div>
-            <div className="contact-item">
+            <div className="contact-item always-rgb">
               <h3>Address</h3>
               <p>Durian Tunggal, Melaka</p>
             </div>

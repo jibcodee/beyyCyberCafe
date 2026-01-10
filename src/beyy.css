@@ -35,6 +35,7 @@ a { color: inherit; text-decoration: none; }
   color: #00ff00;
   font-weight: 700;
   font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .logo-icon { width: 1.4rem; height: 1.4rem; }
@@ -49,10 +50,10 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
   color: #dfe;
+  cursor: pointer;
 }
 
-.nav-links a.active,
-.nav-links a:hover {
+.nav-links a.active {
   background: #00ff00;
   color: #000;
   font-weight: 700;
@@ -93,7 +94,6 @@ a { color: inherit; text-decoration: none; }
   border-radius: 12px;
   cursor: grab;
 }
-
 .slider-image:active { cursor: grabbing; }
 
 /* ================= SECTION ================= */
@@ -145,11 +145,24 @@ a { color: inherit; text-decoration: none; }
 /* content inside cards */
 .spec-card h3,
 .service-card h3,
-.contact-item h3 { color: #00ff00; margin: 0 0 0.45rem; }
-
+.contact-item h3 { color: #00ff00; margin: 0 0 0.45rem; font-size: 1rem; }
 .spec-card p,
 .contact-item p,
 .service-card span { color: #dfe; margin: 0.2rem 0; }
+
+/* service card layout: icon aligned with text */
+.service-flex-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.service-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+}
 
 /* ================= RGB BORDER (common) ================= */
 .spec-card::before,
@@ -168,26 +181,45 @@ a { color: inherit; text-decoration: none; }
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0; /* default hidden unless always-rgb or hover */
   transition: opacity 0.2s ease, transform 0.25s ease;
 }
 
-/* show border on hover or when given highlight class */
-.spec-card:hover::before,
-.service-card:hover::before,
-.contact-item:hover::before,
-.spec-card.highlight::before,
-.service-card.highlight::before,
-.contact-item.highlight::before {
+/* ALWAYS ON RGB for those elements that include .always-rgb */
+.always-rgb::before {
   opacity: 1;
 }
 
-/* lift card on hover */
+/* Hover shows rgb if not already visible, and also green highlight modifier */
+.spec-card:hover::before,
+.service-card:hover::before,
+.contact-item:hover::before {
+  opacity: 1;
+}
+
+/* GREEN HIGHLIGHT on hover - subtle green background + stronger glow */
+.spec-card.green-highlight,
+.service-card.green-highlight,
+.contact-item.green-highlight {}
+
 .spec-card:hover,
 .service-card:hover,
 .contact-item:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 30px rgba(0,255,0,0.08);
+  background: linear-gradient(180deg, rgba(0,255,0,0.02), rgba(0,255,0,0.00));
+}
+
+/* add extra strong green border while hovered */
+.spec-card:hover::after,
+.service-card:hover::after,
+.contact-item:hover::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(0,255,0,0.25);
 }
 
 /* ================= BOOKING FORM ================= */
@@ -245,13 +277,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .popup h3 { color: #00ff00; margin-top: 0; margin-bottom: 0.6rem; }
-
 .popup p { margin: 0.35rem 0; }
 
 .popup-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem; /* THE GAP YOU WANTED */
+  gap: 1rem; /* gap between Cancel & Continue */
   margin-top: 1rem;
 }
 
