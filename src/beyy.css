@@ -1,311 +1,288 @@
-/* ================= GENERAL ================= */
+/* ================= BASE ================= */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0a0a0a;
   color: #e0e0e0;
+  scroll-behavior: smooth;
 }
 
-.section {
-  padding: 3rem 1rem;
-}
-
-h2 {
-  color: #00ff00;
-  text-align: center;
-  margin-bottom: 2rem;
-}
+a { color: inherit; text-decoration: none; }
 
 /* ================= NAV ================= */
 .nav {
-  position: fixed;
-  width: 100%;
-  background: #000;
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(8px);
   z-index: 100;
-  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0,255,0,0.08);
 }
 
 .nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0.9rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-links a {
-  margin-left: 1rem;
-  color: #e0e0e0;
-  text-decoration: none;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ff00;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
-.nav-links a.active {
-  color: #00ff00;
+.logo-icon { width: 1.4rem; height: 1.4rem; }
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  color: #dfe;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  background: #00ff00;
+  color: #000;
+  font-weight: 700;
 }
 
 /* ================= HERO ================= */
 .hero {
   text-align: center;
-  padding-top: 6rem;
+  padding: 5.2rem 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+.hero h1 {
+  color: #00ff00;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  margin: 0 0 0.6rem 0;
+}
+
+.hero p {
+  color: #bfecc7;
+  margin: 0 0 1rem 0;
+}
+
+/* ================= IMAGE BANNER ================= */
 .slider-container {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  overflow: hidden;
+  border-radius: 14px;
 }
 
 .slider-image {
-  width: 80%;
-  max-width: 800px;
-  border-radius: 12px;
-}
-
-/* ================= SPEC GRID ================= */
-.spec-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.spec-card {
-  position: relative;
-  width: 220px;
-  padding: 1.5rem;
-  border-radius: 16px;
-  background: #111;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.spec-card h3 {
-  color: #00ff00;
-  margin-bottom: 0.5rem;
-}
-
-.spec-card p {
-  color: #e0e0e0;
-  margin: 0.2rem 0;
-}
-
-/* Hover RGB border */
-.spec-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff9900,
-    #ffff00,
-    #00ff00,
-    #00ffff,
-    #0066ff,
-    #ff00ff,
-    #ff0000
-  );
-  background-size: 400% 400%;
-  animation: rgbBorderMove 25s linear infinite;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.spec-card.highlight::before {
-  opacity: 1;
-}
-
-.spec-card:hover {
-  transform: translateY(-6px) scale(1.05);
-  opacity: 1;
-  cursor: pointer;
-  --border-opacity: 1;
-}
-
-/* ================= SERVICES ================= */
-.service-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.service-card {
-  position: relative;
-  width: 200px;
-  padding: 1.5rem;
-  border-radius: 16px;
-  background: #111;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.service-card span {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
   display: block;
-  margin-top: 0.5rem;
+  border-radius: 12px;
+  cursor: grab;
 }
 
-.service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff9900,
-    #ffff00,
-    #00ff00,
-    #00ffff,
-    #0066ff,
-    #ff00ff,
-    #ff0000
-  );
-  background-size: 400% 400%;
-  animation: rgbBorderMove 25s linear infinite;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.slider-image:active { cursor: grabbing; }
+
+/* ================= SECTION ================= */
+.section {
+  padding: 2.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.service-card.highlight::before {
-  opacity: 1;
+.section h2 {
+  text-align: center;
+  color: #00ff00;
+  margin-bottom: 1.25rem;
 }
 
-.service-card:hover {
-  transform: translateY(-6px) scale(1.05);
-  opacity: 1;
+.spec-detail {
+  background: #0f0f0f;
+  padding: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 0 auto 1.2rem;
 }
 
-/* ================= CONTACT ================= */
+/* ================= GRID ================= */
+.spec-grid,
+.service-grid,
 .contact-grid {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.25rem;
   flex-wrap: wrap;
-  margin-top: 2rem;
 }
 
+/* ================= CARD BASE ================= */
+.spec-card,
+.service-card,
 .contact-item {
   position: relative;
   width: 220px;
-  padding: 1.5rem;
-  border-radius: 16px;
+  padding: 1.2rem;
+  border-radius: 14px;
   background: #111;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
 }
 
-.contact-item h3 {
-  color: #00ff00;
-  margin-bottom: 0.5rem;
-}
+/* content inside cards */
+.spec-card h3,
+.service-card h3,
+.contact-item h3 { color: #00ff00; margin: 0 0 0.45rem; }
 
-.contact-item p {
-  color: #e0e0e0;
-  margin: 0.2rem 0;
-}
+.spec-card p,
+.contact-item p,
+.service-card span { color: #dfe; margin: 0.2rem 0; }
 
+/* ================= RGB BORDER (common) ================= */
+.spec-card::before,
+.service-card::before,
 .contact-item::before {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 2px;
+  padding: 2px; /* thickness */
   border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff9900,
-    #ffff00,
-    #00ff00,
-    #00ffff,
-    #0066ff,
-    #ff00ff,
-    #ff0000
-  );
-  background-size: 400% 400%;
-  animation: rgbBorderMove 25s linear infinite;
+  background: linear-gradient(90deg,
+    #ff0000,#ff9900,#ffff00,#00ff00,#00ffff,#0066ff,#ff00ff,#ff0000);
+  background-size: 300% 300%;
+  animation: rgbBorderMove 20s linear infinite;
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0;
+  transition: opacity 0.2s ease, transform 0.25s ease;
 }
 
-.contact-item:hover::before {
+/* show border on hover or when given highlight class */
+.spec-card:hover::before,
+.service-card:hover::before,
+.contact-item:hover::before,
+.spec-card.highlight::before,
+.service-card.highlight::before,
+.contact-item.highlight::before {
   opacity: 1;
 }
 
+/* lift card on hover */
+.spec-card:hover,
+.service-card:hover,
 .contact-item:hover {
-  transform: translateY(-6px) scale(1.05);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0,255,0,0.08);
 }
 
-/* ================= BOOKING POPUP ================= */
+/* ================= BOOKING FORM ================= */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  background: #111;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 85%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: none;
+  background: #0b0b0b;
+  color: #eaeaea;
+}
+
+.booking-form button {
+  padding: 0.65rem 1.1rem;
+  border-radius: 8px;
+  background: #00ff00;
+  color: #000;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================= POPUP ================= */
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0,0,0,0.75);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 200;
+  z-index: 999;
 }
 
 .popup {
-  background: #111;
-  padding: 2rem;
-  border-radius: 16px;
-  width: 320px;
-  text-align: center;
-  color: #e0e0e0;
+  background: #0e0e0e;
+  padding: 1.6rem;
+  border-radius: 12px;
+  width: 340px;
+  text-align: left;
+  color: #e6f7e6;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
 }
+
+.popup h3 { color: #00ff00; margin-top: 0; margin-bottom: 0.6rem; }
+
+.popup p { margin: 0.35rem 0; }
 
 .popup-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 1rem; /* THE GAP YOU WANTED */
   margin-top: 1rem;
 }
 
 .cancel-btn,
 .continue-btn {
-  padding: 0.5rem 1rem;
-  border: none;
+  padding: 0.6rem 1rem;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
+  font-weight: 700;
 }
 
-.cancel-btn {
-  background: #444;
-  color: #fff;
-}
-
-.continue-btn {
-  background: #00ff00;
-  color: #000;
-}
+.cancel-btn { background: #333; color: #fff; }
+.continue-btn { background: #00ff00; color: #000; opacity: 0.95; }
 
 /* ================= ANIMATION ================= */
 @keyframes rgbBorderMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .slider-image { height: 260px; object-fit: cover; }
+  .spec-card, .service-card, .contact-item { width: 180px; }
+  .nav-inner { padding: 0.8rem 1rem; }
+}
+
+@media (max-width: 520px) {
+  .nav-links { display: none; }
+  .spec-card, .service-card, .contact-item { width: 90%; }
+  .slider-image { height: 220px; }
 }
