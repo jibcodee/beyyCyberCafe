@@ -14,8 +14,9 @@ export default function BeyyLanding() {
   const [index, setIndex] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
   const [showPrinterPrice, setShowPrinterPrice] = useState(false);
+  const [highlightPackage, setHighlightPackage] = useState(false);
 
-  const bookingRef = useRef(null); // Reference to booking section
+  const package1Ref = useRef(null); // Ref for Package 1 card
 
   // Auto slide banner
   useEffect(() => {
@@ -52,10 +53,13 @@ export default function BeyyLanding() {
     casual: { title: "Package 3", price: "5 hour / RM 45" }
   };
 
-  // Function to scroll to booking section
+  // Scroll to Package 1
   const scrollToPackage1 = () => {
-    if (bookingRef.current) {
-      bookingRef.current.scrollIntoView({ behavior: "smooth" });
+    if (package1Ref.current) {
+      package1Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      setHighlightPackage(true);
+      // Remove highlight after 2 seconds
+      setTimeout(() => setHighlightPackage(false), 2000);
     }
   };
 
@@ -72,8 +76,8 @@ export default function BeyyLanding() {
             <a href="#hero" className={activeNav === "hero" ? "active" : ""}>Home</a>
             <a href="#specs" className={activeNav === "specs" ? "active" : ""}>PC Spec</a>
             <a href="#services" className={activeNav === "services" ? "active" : ""}>Service</a>
-            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
             <a href="#contact" className={activeNav === "contact" ? "active" : ""}>Contact</a>
+            <a href="#booking" className={activeNav === "booking" ? "active" : ""}>Reserve Now</a>
           </nav>
         </div>
       </header>
@@ -119,7 +123,11 @@ export default function BeyyLanding() {
 
           <div className="spec-grid">
             {Object.values(specs).map((pkg, idx) => (
-              <div className="spec-card" key={idx}>
+              <div
+                className={`spec-card ${highlightPackage && idx === 0 ? "highlight" : ""}`}
+                key={idx}
+                ref={idx === 0 ? package1Ref : null} // Ref only for Package 1
+              >
                 <h3>{pkg.title}</h3>
                 <p>{pkg.price}</p>
               </div>
@@ -150,13 +158,12 @@ export default function BeyyLanding() {
             >
               <Monitor className="service-icon" />
               <span>Gaming PCs</span>
-              <span className="service-price">{specs.gaming.price}</span>
             </div>
           </div>
         </section>
 
         {/* BOOKING FORM */}
-        <section id="booking" ref={bookingRef} className="section">
+        <section id="booking" className="section">
           <h2>Reserve Your PC</h2>
           <div className="booking-form">
             <input type="text" placeholder="Your Name" />

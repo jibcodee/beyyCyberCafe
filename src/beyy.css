@@ -303,3 +303,10 @@ h3 {
     text-align: center;
   }
 }
+
+/* Highlight Package 1 when clicked from Gaming PCs */
+.spec-card.highlight {
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 15px #00ff00;
+  transition: all 0.3s ease;
+}
