@@ -1,6 +1,5 @@
-/* Font import (add to top of your CSS or include in HTML head)
+/* Font import (add to top of your CSS or include in HTML head) */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-*/
 
 /* ================= BASE ================= */
 body {
@@ -72,42 +71,58 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* ================= RGB BORDER (IMPROVED) ================= */
+/* ================= RGB BORDER (CLEAN LINES) ================= */
 .rgb-border {
   position: relative;
   background: #111;
   border-radius: 18px;
-  isolation: isolate;
+  padding: 2px;
 }
 
 .rgb-border::before {
   content: "";
   position: absolute;
-  inset: -3px;
+  inset: 0;
   border-radius: inherit;
-  background: linear-gradient(120deg, #ff0000, #00ff00, #00ffff, #ff0000);
-  background-size: 300% 300%;
-  filter: blur(6px);
-  animation: rgbMove 10s linear infinite;
-  z-index: -1;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000);
+  background-size: 400% 100%;
+  animation: rgbMove 8s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   pointer-events: none;
 }
 
 @keyframes rgbMove {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
+  0% { background-position: 0% 0%; }
+  100% { background-position: 400% 0%; }
 }
 
 /* ================= PC SPEC ================= */
 .pc-spec-card {
   max-width: 600px;
   margin: auto;
+}
+
+.pc-spec-card ul {
   padding: 1.6rem;
+  margin: 0;
+  background: #111;
+  border-radius: 16px;
+  list-style: none;
 }
 
 .pc-spec-card li {
-  padding: .4rem 0;
+  padding: .8rem 1rem;
+  margin: .5rem 0;
   border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,255,0,.03);
+  border-radius: 8px;
+}
+
+.pc-spec-card li:last-child {
+  border-bottom: none;
 }
 
 /* ================= SERVICES ================= */
@@ -120,9 +135,13 @@ body {
 
 .service-card {
   width: 240px;
-  padding: 1.3rem;
   cursor: pointer;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
 }
 
 .service-head {
@@ -130,6 +149,16 @@ body {
   align-items: center;
   gap: .5rem;
   justify-content: center;
+  padding: 1.3rem;
+  background: #111;
+  border-radius: 16px;
+}
+
+.print-price {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  background: #111;
+  border-radius: 16px;
 }
 
 .print-price p {
@@ -148,32 +177,43 @@ body {
 .package-card {
   width: 210px;
   text-align: center;
-  padding: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+  transform: scale(1.05);
+}
+
+.package-card h3,
+.package-card p {
+  padding: 1rem;
+  margin: 0;
+  background: #111;
+  border-radius: 16px;
+}
+
+.package-card h3 {
+  border-bottom: 2px solid rgba(0,255,0,0.2);
+  border-radius: 16px 16px 0 0;
+}
+
+.package-card p {
+  padding-top: 1.2rem;
+  border-radius: 0 0 16px 16px;
+  font-size: 1.1rem;
+  color: #00ff00;
+  font-weight: 700;
 }
 
 /* ================= BOOKING ================= */
 .booking-form {
-  position: relative;
   max-width: 420px;
   margin: auto;
-  border-radius: 24px;
+  border-radius: 18px;
   background: #111;
-  padding: 1.6rem;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.booking-form::before {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 28px;
-  background: linear-gradient(120deg, #ff0000, #00ff00, #00ffff, #ff0000);
-  background-size: 300% 300%;
-  filter: blur(9px);
-  animation: rgbMove 12s linear infinite;
-  z-index: -1;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .booking-form input,
@@ -181,13 +221,18 @@ body {
 .booking-form button {
   width: 100%;
   border-radius: 14px;
-  padding: .6rem;
+  padding: .9rem 1rem;
   border: none;
   background: #0b0b0b;
   color: #fff;
-  margin-top: 0.6rem;
   font-family: inherit;
   font-size: 0.95rem;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  outline: 2px solid #00ff00;
+  background: #151515;
 }
 
 .booking-form button {
@@ -195,62 +240,85 @@ body {
   color: #000;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.booking-form button:hover {
+  background: #00dd00;
 }
 
 /* ================= POPUP ================= */
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  backdrop-filter: blur(4px);
 }
 
 .popup-box {
-  width: 320px;
-  padding: 1.6rem;
+  width: 90%;
+  max-width: 360px;
   text-align: center;
-  background: #111;
-  border-radius: 22px;
-  isolation: isolate;
+  border-radius: 18px;
 }
 
 .popup-box h3 {
   color: #00ff00;
-  margin-bottom: .8rem;
+  margin: 0 0 1.2rem 0;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  background: #111;
+  border-radius: 16px 16px 0 0;
 }
 
-.popup-box p {
-  margin: .35rem 0;
+.popup-box > p {
+  margin: 0;
+  padding: .6rem 1.5rem;
   color: #e6f7ea;
+  background: #111;
 }
 
 .popup-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.2rem;
+  padding: 1.5rem;
+  background: #111;
+  border-radius: 0 0 16px 16px;
+}
+
+.cancel-btn,
+.continue-btn {
+  flex: 1;
+  border: none;
+  padding: .75rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.3s ease;
 }
 
 .cancel-btn {
   background: #333;
   color: #fff;
-  border: none;
-  padding: .55rem 1.1rem;
-  border-radius: 12px;
-  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #444;
 }
 
 .continue-btn {
   background: #00ff00;
   color: #000;
-  border: none;
-  padding: .55rem 1.1rem;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
+}
+
+.continue-btn:hover {
+  background: #00dd00;
 }
 
 /* ================= CONTACT ================= */
@@ -263,8 +331,30 @@ body {
 
 .contact-card {
   width: 240px;
-  padding: 1.4rem;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-card h4,
+.contact-card p {
+  padding: 1rem;
+  margin: 0;
+  background: #111;
+  border-radius: 16px;
+}
+
+.contact-card h4 {
+  color: #00ff00;
+  border-bottom: 2px solid rgba(0,255,0,0.2);
+  border-radius: 16px 16px 0 0;
+}
+
+.contact-card p {
+  border-radius: 0 0 16px 16px;
 }
 
 /* ================= Accessibility & Responsive ================= */
@@ -279,13 +369,16 @@ body {
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .rgb-border::before,
-  .booking-form::before {
+  .rgb-border::before {
     animation: none;
-    background-position: 0% 50%;
   }
   html {
     scroll-behavior: auto;
+  }
+  .service-card:hover,
+  .package-card:hover,
+  .contact-card:hover {
+    transform: none;
   }
 }
 
