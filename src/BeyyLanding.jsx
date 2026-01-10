@@ -120,31 +120,35 @@ export default function BeyyLanding() {
         </section>
 
         {/* ================= SERVICES ================= */}
-        <section id="services" className="section">
-          <h2>Service</h2>
-          <div className="service-grid">
-            <div
-              className="service-card service-flex"
-              onClick={() => setShowPrinterPrice(!showPrinterPrice)}
-            >
-              <Printer className="service-icon" />
-              <span>Printing</span>
-              {showPrinterPrice && (
-                <span className="service-price">RM 0.50 per page (Color & B/W)</span>
-              )}
-            </div>
-            <div
-              className="service-card service-flex"
-              onClick={() => setShowGamingPrice(!showGamingPrice)}
-            >
-              <Monitor className="service-icon" />
-              <span>Gaming PCs</span>
-              {showGamingPrice && (
-                <span className="service-price">{specs.gaming.price}</span>
-              )}
-            </div>
-          </div>
-        </section>
+<section id="services" className="section">
+  <h2>Service</h2>
+  <div className="service-grid">
+    <div
+      className="service-card service-flex"
+      onClick={() => setShowPrinterPrice(!showPrinterPrice)}
+    >
+      <Printer className="service-icon" />
+      <span>Printing</span>
+      {showPrinterPrice && (
+        <div className="service-price">
+          <p>RM 0.50 per page B/W</p>
+          <p>RM 1.50 per page Color</p>
+        </div>
+      )}
+    </div>
+    <div
+      className="service-card service-flex"
+      onClick={() => setShowGamingPrice(!showGamingPrice)}
+    >
+      <Monitor className="service-icon" />
+      <span>Gaming PCs</span>
+      {showGamingPrice && (
+        <span className="service-price">{specs.gaming.price}</span>
+      )}
+    </div>
+  </div>
+</section>
+
 
         {/* ================= BOOKING FORM ================= */}
         <section id="booking" className="section">

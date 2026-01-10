@@ -207,8 +207,13 @@ h3 {
   color: #00ff00;
   font-weight: bold;
   font-size: 0.95rem;
-  display: none;
+  text-align: center;
 }
+
+.service-price p {
+  margin: 0.2rem 0; /* spacing between B/W and Color */
+}
+
 
 /* ================= BOOKING FORM ================= */
 .booking-form {
