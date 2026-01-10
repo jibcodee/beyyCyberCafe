@@ -83,7 +83,6 @@ body {
     #ff0000,
     #00ff00,
     #00ffff,
-    #ff00ff,
     #ff0000
   );
   background-size: 300% 300%;
@@ -153,29 +152,38 @@ body {
 
 /* ================= BOOKING ================= */
 .booking-form {
-  max-width: 400px;
-  margin: auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
+  position: relative;
+  border-radius: 22px;              /* smoother curve */
+  background: #111;
+  padding: 1.6rem;
+  overflow: hidden;                 /* clip glow nicely */
 }
 
+/* RGB border (soft + curved) */
+.booking-form::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 26px;              /* MUST be bigger than parent */
+  background: linear-gradient(
+    120deg,
+    #ff0000,
+    #00ff00,
+    #00ffff,
+    #ff0000
+  );
+  background-size: 300% 300%;
+  filter: blur(8px);                /* softer glow */
+  opacity: 0.9;
+  animation: rgbMove 12s linear infinite;
+  z-index: -1;
+}
+
+/* Make inputs also feel rounded */
 .booking-form input,
-.booking-form select {
-  padding: .6rem;
-  border-radius: 6px;
-  border: none;
-  background: #0b0b0b;
-  color: #fff;
-}
-
+.booking-form select,
 .booking-form button {
-  background: #00ff00;
-  border: none;
-  padding: .6rem;
-  font-weight: 700;
-  cursor: pointer;
+  border-radius: 14px;
 }
 
 /* ================= CONTACT ================= */
