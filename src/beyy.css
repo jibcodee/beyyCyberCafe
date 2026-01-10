@@ -1,159 +1,198 @@
 /* ================= BASE ================= */
-:root{
-  --green:#00ff00;
-  --card-bg:#111;
-  --soft:#dfe;
-}
 body {
   margin: 0;
-  font-family: "Orbitron", sans-serif;
   background: #0a0a0a;
-  color: #e0e0e0;
+  color: #eaeaea;
+  font-family: "Orbitron", sans-serif;
 }
+
+.app { overflow-x: hidden; }
 
 /* ================= NAV ================= */
 .nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(0,0,0,0.95);
-  border-bottom: 1px solid rgba(0,255,0,0.06);
+  background: rgba(0,0,0,.9);
+  border-bottom: 1px solid rgba(0,255,0,.15);
 }
+
 .nav-inner {
   max-width: 1200px;
   margin: auto;
-  padding: 0.85rem 1.25rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  padding: .9rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.logo { display:flex; gap:0.5rem; align-items:center; color:var(--green); font-weight:700; cursor:pointer; }
-.logo-icon{ width:1.4rem; height:1.4rem; }
-.nav-links { display:flex; gap:0.9rem; }
-.nav-links a { padding:0.4rem 0.65rem; border-radius:8px; color:var(--soft); font-weight:600; transition: background 140ms ease, color 140ms ease; }
-.nav-links a.active { background:var(--green); color:#000; }
 
-/* ================= HERO / SLIDER ================= */
-.hero { text-align:center; padding:4.8rem 1rem 2rem; max-width:1200px; margin:0 auto; }
-.hero-inner h1 { color:var(--green); margin:0; font-size:clamp(1.6rem,2.8vw,2.4rem); }
-.hero-inner p { color:#bfecc7; margin:0.4rem 0; }
+.logo {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  color: #00ff99;
+  font-weight: 700;
+  cursor: pointer;
+}
 
-.slider-container { position:relative; max-width:1200px; margin:1.25rem auto; height:420px; border-radius:12px; overflow:hidden; }
-.slider-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.02); transition: opacity 420ms ease, transform 700ms cubic-bezier(.2,.9,.3,1); will-change: opacity, transform; }
-.slider-image.active { opacity:1; transform:scale(1); }
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links span {
+  cursor: pointer;
+  color: #cfcfcf;
+}
+
+.nav-links .active {
+  color: #000;
+  background: #00ff99;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
 
 /* ================= SECTION ================= */
-.section { padding:2.0rem 1rem; max-width:1200px; margin: 0 auto; }
-.section h2 { text-align:center; color:var(--green); margin-bottom:1rem; }
-
-/* ================= GRID / CARD BASE ================= */
-.spec-grid, .service-grid, .contact-grid { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-.spec-card, .service-card, .contact-item {
-  position:relative;
-  width:220px;
-  padding:1.1rem;
-  border-radius:12px;
-  background:var(--card-bg);
-  text-align:center;
-  cursor:pointer;
-  transition: transform 160ms ease;
-  will-change: transform;
-  overflow:visible; /* for overlays */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 3rem 1.2rem;
 }
-.spec-card:focus, .service-card:focus { outline: 2px solid rgba(0,255,0,0.07); outline-offset:4px; }
 
-.spec-title, .service-title, .contact-title { color:#fff; margin:0 0 0.45rem; font-weight:700; }
-.spec-price { color:var(--soft); margin-top:0.3rem; }
+.section h2 {
+  text-align: center;
+  color: #00ff99;
+  margin-bottom: 1.5rem;
+}
 
-/* ================= RGB MOTION BLUR LINE (optimized) =================
-   Technique:
-   - ::before holds the animated gradient and a small padding (thickness).
-   - blur(filter) applied to ::before to create a motion-blur glow.
-   - ::after overlays the inner area (content-box) to keep inner content sharp.
-   - uses -webkit-mask trick to make border only (works well in modern browsers).
-   - animation only changes background-position (GPU-friendly).
-*/
-.always-rgb::before {
+/* ================= RGB BORDER ================= */
+.rgb-border {
+  position: relative;
+  background: #111;
+  border-radius: 16px;
+}
+
+.rgb-border::before {
   content: "";
   position: absolute;
-  inset: 0;
-  padding: 2px;                 /* border thickness */
+  inset: -2px;
   border-radius: inherit;
-  background: linear-gradient(90deg,
-    #ff004a 0%, #ff8a00 20%, #ffee00 40%, #00ff6a 60%, #00c7ff 80%, #ba00ff 100%);
-  background-size: 280% 100%;
-  filter: blur(6px);            /* motion blur glow */
-  opacity: 0.95;
-  pointer-events: none;
-  z-index: 0;
-  transform: translateZ(0);     /* promote to its own layer for perf */
-  will-change: background-position, opacity;
-  animation: rgbShift 9s linear infinite;
+  background: linear-gradient(
+    120deg,
+    #ff0000,
+    #00ff00,
+    #00ffff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 300% 300%;
+  filter: blur(6px);
+  animation: rgbMove 10s linear infinite;
+  z-index: -1;
 }
 
-/* mask so the center remains content-box (inner area) */
-.always-rgb::before {
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-/* inner overlay to keep content readable */
-.always-rgb::after {
-  content: "";
-  position: absolute;
-  inset: 2px;                   /* same as padding to cover inner area */
-  border-radius: calc(12px - 2px);
-  background: rgba(0,0,0,0.85);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ensure the content is above the overlay */
-.spec-card > *, .service-card > *, .contact-item > * { position: relative; z-index: 2; }
-
-/* slower/fewer frames on reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .always-rgb::before { animation: none; filter: blur(4px); opacity:0.8; }
-}
-
-/* rgbShift animates only background-position (cheap) */
-@keyframes rgbShift {
+@keyframes rgbMove {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 
-/* Hover subtle lift */
-.spec-card:hover, .service-card:hover, .contact-item:hover { transform: translateY(-6px); }
-
-/* ================= PRINTING OVERLAY (absolute, no reflow) ================= */
-.printing-card { overflow:visible; }
-.service-main { display:flex; gap:0.6rem; align-items:center; justify-content:center; z-index:2; }
-.service-icon { width:1.4rem; height:1.4rem; }
-.printing-overlay {
-  position:absolute;
-  left:10px;
-  right:10px;
-  bottom:-8px;
-  transform: translateY(12px);
-  opacity:0;
-  pointer-events:none;
-  transition: transform 220ms cubic-bezier(.2,.9,.3,1), opacity 200ms ease;
-  background: linear-gradient(180deg, rgba(0,0,0,0.80), rgba(0,0,0,0.9));
-  padding:0.6rem;
-  border-radius:10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  z-index: 3;
+/* ================= PC SPEC ================= */
+.pc-spec-card {
+  max-width: 600px;
+  margin: auto;
+  padding: 1.6rem;
 }
-.printing-overlay.show { transform: translateY(0); opacity:1; pointer-events:auto; }
-.printing-overlay p { margin:0.25rem 0; color: #dfe; font-weight:700; }
 
-/* ================= BOOKING / CONTACT ================= */
-.booking-form { display:flex; flex-direction:column; gap:0.6rem; align-items:center; background:var(--card-bg); padding:1rem; border-radius:10px; max-width:520px; margin:0 auto; }
-.booking-form input, .booking-form select { width:85%; padding:0.6rem; border-radius:8px; border:0; background:#0b0b0b; color:#fff; }
-.booking-form button { background:var(--green); color:#000; font-weight:700; padding:0.6rem 1rem; border-radius:8px; border:0; cursor:pointer; }
+.pc-spec-card li {
+  padding: .4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
 
-/* small screens */
-@media (max-width:900px) { .slider-container{ height:260px } .spec-card,.service-card,.contact-item{ width:180px } }
-@media (max-width:520px) { .nav-links{ display:none } .spec-card,.service-card,.contact-item{ width:90% } .slider-container{ height:200px } }
+/* ================= SERVICES ================= */
+.service-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  width: 240px;
+  padding: 1.3rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.service-head {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.print-price p {
+  margin: .4rem 0;
+  color: #baffd9;
+}
+
+/* ================= PACKAGES ================= */
+.package-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.package-card {
+  width: 210px;
+  text-align: center;
+  padding: 1.4rem;
+}
+
+.package-card span {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #00ff99;
+}
+
+/* ================= BOOKING ================= */
+.booking-form {
+  max-width: 400px;
+  margin: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.booking-form input,
+.booking-form select {
+  padding: .6rem;
+  border-radius: 6px;
+  border: none;
+  background: #0b0b0b;
+  color: #fff;
+}
+
+.booking-form button {
+  background: #00ff99;
+  border: none;
+  padding: .6rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ================= CONTACT ================= */
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  width: 240px;
+  padding: 1.4rem;
+  text-align: center;
+}
